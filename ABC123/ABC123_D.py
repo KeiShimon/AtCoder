@@ -38,9 +38,9 @@ for _ in range(K):
         used.add((i+1,j,k))
 
     if j < Y-1 and (i,j+1,k) not in used:
-            heapq.heappush(candidates, (-(A[i]+B[j+1]+C[k]), i,j+1,k))
-            used.add((i,j+1,k))
+        heapq.heappush(candidates, (-(A[i]+B[j+1]+C[k]), i,j+1,k))
+        used.add((i,j+1,k))
 
     if k < Z-1 and (i,j,k+1) not in used:
-            heapq.heappush(candidates, (-(A[i]+B[j]+C[k+1]), i,j,k+1))
-            used.add((i,j,k+1))
+        heapq.heappush(candidates, (-(A[i]+B[j]+C[k+1]), i,j,k+1))
+        used.add((i,j,k+1))

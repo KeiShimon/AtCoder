@@ -10,11 +10,10 @@ def step():
             state[i+1] += capacities[i]
             state[i] -= capacities[i]
 
-
 N = int(input())
 capacities = [int(input()) for _ in range(5)]
 
-# state = [N,0,0,0,0,0]
+state = [N,0,0,0,0,0]
 
 # t = 0
 # while True:
