@@ -1,7 +1,5 @@
 N = int(input())
 S = input()
-N = len(S)
-MAX = 2 * (10 ** 5)
 
 # . : white
 # # : black
@@ -21,41 +19,24 @@ for c in S:
     nwhite.append(nwhite_current)
     nblack.append(nblack_current)
 
-if nwhite_current == 0 or nblack_current == 0:
-    print(0)
+ans = 0
 
-else:
-    # indices of start of the sequence of black stones
-    black = []
-    flag = False
+if nwhite_current != 0 and nblack_current != 0:
 
-    for i, c in enumerate(S):
-        if c == '#':
-            if not flag:
-                black.append(i)
-                flag = True
-        
-        else:
-            flag = False
-
-    # print('white: ',nwhite)
-    # print('black: ', nblack)
-    # print('i-black: ',black)
-
-    ans = MAX + 1
+    ans = N + 1
 
     # set a index that starts sequence of black(#)
-    for i in black:
+    for i in range(N):
 
-        curans = 0
+        ans_current = 0
 
-        # then turn over all black(#) left to it
+        # flip all black(#) left to it
         if i > 0:
-            curans = nblack[i-1]
+            ans_current = nblack[i-1]
 
-        # then turn over all white(.) right to it    
-        curans += (nwhite_current - nwhite[i])
+        # flip all white(.) right to it    
+        ans_current += (nwhite_current - nwhite[i])
 
-        ans = min(ans, curans)
+        ans = min(ans, ans_current)
 
-    print(ans)
+print(ans)
