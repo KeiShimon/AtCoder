@@ -1,5 +1,16 @@
 from collections import defaultdict
 
+'''
+Bellmanford's algorithm.
+This algorithm finds a minimum distances to each vertex from starting vertex.
+
+This algorithm is useful when it is preknown that there can be a negative-cost edge.
+
+Check if negative-loop exists before running search,
+because if negative loop exists, search will enter infinite-loop.
+'''
+
+
 class BellmanFord():
     def __init__(self, n_nodes):
         self.edges = []
@@ -40,13 +51,12 @@ class BellmanFord():
         Detection of negative loop.\n
         Returns True if negative loop exists otherwise False.\n
         '''
+        # O(|V||E|)
 
         ditances = defaultdict(lambda: float('inf'))
         ditances[0] = 0
 
-
         # loop for n times to know if node-update happens at nth iteration
-        # O(|V||E|)
         for i in range(self.n_nodes):
             for origin, destination, cost in self.edges:
 
