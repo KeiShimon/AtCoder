@@ -1,12 +1,9 @@
 from collections import defaultdict
-import heapq
 
 '''
 Kruskal's algorithm:
     This is a DP (greedy) algorithm that finds a minimum spanning tree(MST) for a weighted undirected graph.
     O(|E|.logE)
-
-If edges are given by reverse-sorted order, re-implement heapq part and the algorithm becomes faster.
 
 MST:
     MST is a subset of the edges that forms a tree that includes every vertex,
@@ -23,7 +20,7 @@ class Kruskal():
 
     def root(self, a):
         '''
-        Returns indea of the root of the union to which a belongs to.
+        Returns index of the root of the union to which a belongs to.
         '''
 
         if self.parent[a] < 0:
@@ -54,7 +51,7 @@ class Kruskal():
             return True
 
     def add_edge(self, a, b, cost):
-        heapq.heappush(self.edges, (cost, a, b))
+        self.edges.append((cost, a, b))
 
     def construct_MST_Kruskal(self):
         
@@ -62,9 +59,10 @@ class Kruskal():
             done = set(self.Kruskal_edges.keys())
         else:
             done = set()
+            self.edges.sort(key=lambda x: x[0], reverse=True)
         
         while self.edges:
-            cost, a, b = heapq.heappop(self.edges)
+            cost, a, b = self.edges.pop()
 
             if self.unite(a, b):
                 done.add(a)

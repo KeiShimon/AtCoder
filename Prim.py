@@ -19,7 +19,7 @@ class Prim():
 
     def add_edge(self, a, b, cost, directed=False):
         '''
-        Pay caytion when setting directed = True. (Prim usually assumes undirected graph.)
+        Pay caution when setting directed = True. (Prim usually assumes undirected graph.)
         '''
 
         self.edges[a].append((cost,b))
