@@ -32,9 +32,16 @@ class Prim():
         '''
         # O(|E|.logE)
 
-        if not self.edges[start]:
-            raise ValueError('Starting vertex does not have any adjacent node hence impossible to initiate a MST construction.')
+        # start-vertex is already part of Prim_subtree
+        if start in self.Prim_edges.keys():
+            return True
 
+        # start-vertex is isolated
+        elif not self.edges[start]:
+            self.Prim_edges[start].append((-1, self.n_vertices))
+            return True
+
+        # construct MST!
         else: # initialize
             q = []
             done = set()
@@ -46,7 +53,6 @@ class Prim():
             self.Prim_edges[start].append((cost, b))
             self.Prim_edges[b].append((cost, start))
             done.add(start)
-
             for cost, vertex in self.edges[b]:
                 heapq.heappush(q, (cost, b, vertex))
 
@@ -60,7 +66,7 @@ class Prim():
                 for cost, vertex in self.edges[b]:
                     heapq.heappush(q, (cost, b, vertex))
 
-            if len(done) == self.n_vertices:
+            if len(done) == self.n_vertices: # works as desired if and only if there is no isolated vertex
                 break
 
         return True
