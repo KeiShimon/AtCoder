@@ -4,6 +4,7 @@ import heapq
 '''
 Prim's algorithm:
     This is a DP (greedy) algorithm that finds a minimum spanning tree(MST) for a weighted undirected graph.
+    O(|E|.logE)
 
 MST:
     MST is a subset of the edges that forms a tree that includes every vertex,
@@ -24,13 +25,12 @@ class Prim():
         self.edges[a].append((cost,b))
         self.edges[b].append((cost,a))
 
-    def construct_Prim_subtree(self, start=0):
+    def construct_MST_Prim(self, start=0):
         '''
         Input:
             start: starting vertex to initiate MST construction.
             Raise ValueError if starting vertex is isolated.
         '''
-        # O(|E|.logE)
 
         # start-vertex is already part of Prim_subtree
         if start in self.Prim_edges.keys():

@@ -7,7 +7,7 @@ class UnionFind():
         
     def root(self, x):
         '''
-        Returns index of parent vertex.
+        Returns index of the root of the union to which x belongs to.
         '''
 
         if self.parent[x] < 0:
