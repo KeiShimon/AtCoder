@@ -54,13 +54,30 @@ class Kruskal():
         self.edges.append((cost, a, b))
 
     def construct_MST_Kruskal(self):
+        '''
+        Returns True if MST is constructed and it contains all the vertices.
+        Returns False if MST is complete but some isolated vertices exists.
+
+        When False is returned, current MST is a subtree without isolated verticies.
+        '''
         
+        # some MST already exists
         if self.Kruskal_edges:
             done = set(self.Kruskal_edges.keys())
+
+            # MST construction is already complete and there is no isolated vertex
+            if len(done) == self.n_vertices:
+                return True
+            
+            # MST construction is already complete but there is some isolated vertex
+            elif not self.edges:
+                return False
+
         else:
             done = set()
-            self.edges.sort(key=lambda x: x[0], reverse=True)
         
+        self.edges.sort(key=lambda x: x[0], reverse=True)
+
         while self.edges:
             cost, a, b = self.edges.pop()
 
@@ -70,3 +87,8 @@ class Kruskal():
 
                 self.Kruskal_edges[a].append((cost,b))
                 self.Kruskal_edges[b].append((cost,a))
+
+            if len(done) == self.n_vertices:
+                return True
+
+        return False
