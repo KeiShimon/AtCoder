@@ -4,7 +4,7 @@ class UnionFind():
         # if parent, absolute value represents the number of vertices in the union
         # if child, value represents the parent vertex to it
         self.parent = [-1] * n
-        
+
     def root(self, x):
         '''
         Returns index of the root of the union to which x belongs to.
@@ -23,9 +23,9 @@ class UnionFind():
         '''
         Returns the size of the union to which input index belongs.
         '''
-        
+
         return -1 * self.parent[self.root(x)]
-    
+
     def unite(self, x, y):
         '''
         Unite two vertices x and y.\n
@@ -43,13 +43,13 @@ class UnionFind():
             return 0
 
         else:
-            size_x = - self.size(x) 
+            size_x = - self.size(x)
             size_y = - self.size(y)
 
             # attach y into x
             # but before that make sure y is shorter so that always shorter tree is atached to longer tree for efficiency
             if size_x > size_y:
-                x, y = y, x 
+                x, y = y, x
 
             self.parent[x] += self.parent[y]
             self.parent[y] = x

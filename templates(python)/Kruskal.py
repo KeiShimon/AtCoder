@@ -29,7 +29,7 @@ class Kruskal():
         else:
             self.parent[a] = self.root(self.parent[a])
             return self.parent[a]
-    
+
     def unite(self, a, b):
         '''
         Unite two vertices a and b.\n
@@ -38,7 +38,7 @@ class Kruskal():
         Returns:
             True if a and b are in different unions.
             False if a and b are in the same union.
-            
+
         '''
 
         a_root, b_root = self.root(a), self.root(b)
@@ -60,7 +60,7 @@ class Kruskal():
 
         When False is returned, current MST is a subtree without isolated verticies.
         '''
-        
+
         # some MST already exists
         if self.Kruskal_edges:
             done = set(self.Kruskal_edges.keys())
@@ -68,14 +68,14 @@ class Kruskal():
             # MST construction is already complete and there is no isolated vertex
             if len(done) == self.n_vertices:
                 return True
-            
+
             # MST construction is already complete but there is some isolated vertex
             elif not self.edges:
                 return False
 
         else:
             done = set()
-        
+
         self.edges.sort(key=lambda x: x[0], reverse=True)
 
         while self.edges:

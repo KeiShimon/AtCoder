@@ -4,12 +4,12 @@ import heapq
 class Dijkstra():
     def __init__(self):
         self.edges = defaultdict(list)
-    
+
     def add_edge(self, a, b, cost, directed=False):
         self.edges[a].append((b,cost))
         if not directed:
             self.edges[b].append((a,cost))
-        
+
     def delete_edge(self, a, b):
         self.edges[a] = [item for item in self.edges[a] if item[0] != b]
         self.edges[b] = [item for item in self.edges[a] if item[0] != a]
@@ -31,13 +31,13 @@ class Dijkstra():
         if_visited = defaultdict(bool)
 
         while q:
-            # search from a new node whose cost is known to be minimum among items in queue 
+            # search from a new node whose cost is known to be minimum among items in queue
             cost_current, node_current = heapq.heappop(q)
-            
+
             # skip if the node has already been visited
             if if_visited[node_current]:
                 continue
-            
+
             else:
                 if_visited[node_current] = True
 
@@ -46,7 +46,7 @@ class Dijkstra():
 
                     if if_visited[node_visiting]: # check if already visited
                         continue
-                    
+
                     cost_cumulative = cost_current + cost_visiting
 
                     if cost_cumulative < distances[node_visiting]: # check if current path is worthy updating

@@ -36,13 +36,13 @@ class Dijkstra():
         if_visited = defaultdict(bool)
 
         while q:
-            # search from a new node whose cost is known to be minimum among items in queue 
+            # search from a new node whose cost is known to be minimum among items in queue
             cost_current, node_current = heapq.heappop(q)
-            
+
             # skip if the node has already been visited
             if if_visited[node_current]:
                 continue
-            
+
             else:
                 if_visited[node_current] = True
 
@@ -51,7 +51,7 @@ class Dijkstra():
 
                     if if_visited[node_visiting]: # check if already visited
                         continue
-                    
+
                     cost_cumulative = cost_current + cost_visiting
 
                     if cost_cumulative < distances[node_visiting]: # check if current path is worthy updating
@@ -65,7 +65,7 @@ class Dijkstra():
         '''
         Returns a tuple of (list of path, int/float of the distance)
         '''
-        
+
         # path to the node from start-node
         prev = [start] * self.n_nodes
 
@@ -74,7 +74,7 @@ class Dijkstra():
         distances[start] = 0
 
         visited = [False] * self.n_nodes
-        
+
         while True:
 
             # find a unvisited node which has minimum cost
@@ -83,11 +83,11 @@ class Dijkstra():
                 if not visited[i]:
                     if node == -1 or distances[i] < distances[node]:
                         node = i
-            
+
             # all nodes are visited
             if node == -1:
                 break
-            
+
             else:
                 visited[node] = True
 
