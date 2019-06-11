@@ -1,28 +1,36 @@
 #%%
-import itertools
+import sys
+INPUT = sys.stdin.readline
+
+def SINGLE_INT(): return int(INPUT())
+def MULTIPLE_INT_LIST(): return list(map(int, INPUT().split()))
+def MULTIPLE_INT_MAP(): return map(int, INPUT().split())
+def SINGLE_STRING(): return INPUT()
+def MULTIPLE_STRING(): return INPUT().split()
 
 #%%
 
-N, A, B, C = map(int, input().split())
+N, A, B, C = MULTIPLE_INT_MAP()
 materials = [int(input()) for _ in range(N)]
+INF = 10 ** 9
 
-iterobj = itertools.product(range(4),repeat=N)
+#%%
 
-ans = 10**8
+def dfs(cursor, a, b, c):  # cursor:カーソル a,b,c:現在の竹の長さ
+    if cursor == N:  # cursorが最後まで行ったら終了する。
+        return abs(a - A) + abs(b - B) + abs(c - C) - 30 if min(a, b, c) != 0 else INF
+    # なぜ30を減じているのかというと、
+    # dfs(0,0,0,0)で始まる以上、最初に選ばれるa,b,cを決定する際にもコストが10増加してしまうからである。
 
-for use in iterobj:
+    # a,b,cのいずれかに1本も竹を利用していない場合は不適であるため、三項演算子を利用してその場合のコストをINFとする。
 
-    if 1 in use and 2 in use and 3 in use:
+    # 再帰(4**N)
+    # カーソルの当たっている竹に対して、(A or B or Cに合成する) or (合成しない)の場合に分ける
+    no_compound = dfs(cursor+1, a, b, c)
+    compound_to_a = dfs(cursor+1, a + materials[cursor], b, c) + 10
+    compound_to_b = dfs(cursor+1, a, b + materials[cursor], c) + 10
+    compound_to_c = dfs(cursor+1, a, b, c + materials[cursor]) + 10
 
-        synth = [0,0,0,0]
+    return min(no_compound, compound_to_a, compound_to_b, compound_to_c)
 
-        for m, u in  zip(materials, use):
-            synth[u] += m
-
-        mp = 10 * (use.count(1) + use.count(2) + use.count(3) - 3)
-
-        mp += abs(A-synth[1]) + abs(B-synth[2]) + abs(C-synth[3])
-
-        ans = min(ans, mp)
-
-print(ans)
+print(dfs(0, 0, 0, 0))
