@@ -48,7 +48,7 @@ class Prim():
 
             for cost, vertex in self.edges[start]:
                 heapq.heappush(q, (cost, start, vertex))
-            
+
             cost, _, b = heapq.heappop(q) # _ is equivalent to start in initializing block
             self.Prim_edges[start].append((cost, b))
             self.Prim_edges[b].append((cost, start))
