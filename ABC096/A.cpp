@@ -3,14 +3,17 @@
 using namespace std;
 
 class A {
-	int n;
+	int a, b;
 public:
 	void solve()
 	{
-		cout << n - 1 << endl;
+		if (a > b)
+			std::cout << a - 1 << endl;
+		else
+			std::cout << a << endl;
+	
 	}
-
-	A() { cin >> n; }
+	A() { cin >> a >> b; }
 };
 
 

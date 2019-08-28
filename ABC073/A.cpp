@@ -3,14 +3,15 @@
 using namespace std;
 
 class A {
-	int n;
+	int N;
 public:
 	void solve()
 	{
-		cout << n - 1 << endl;
+		if (N % 10 == 9 || ( N / 10 % 10 == 9)) cout << "Yes" << endl;
+		else cout << "No" << endl;
 	}
 
-	A() { cin >> n; }
+	A() { cin >> N; }
 };
 
 

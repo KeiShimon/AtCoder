@@ -2,21 +2,19 @@
 
 using namespace std;
 
-class A {
-	int n;
+class D {
+
 public:
 	void solve()
 	{
-		cout << n - 1 << endl;
-	}
 
-	A() { cin >> n; }
+	}
 };
 
 
 int main()
 {
-	A solution;
+	D solution;
 	solution.solve();
 
 	return 0;

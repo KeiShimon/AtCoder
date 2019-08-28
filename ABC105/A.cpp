@@ -3,14 +3,15 @@
 using namespace std;
 
 class A {
-	int n;
+	int N, K;
 public:
 	void solve()
 	{
-		cout << n - 1 << endl;
-	}
+		if (!(N % K)) cout << 0 << endl;
+		else cout << 1 << endl;
 
-	A() { cin >> n; }
+	}
+	A() { cin >> N >> K; }
 };
 
 
