@@ -29,25 +29,51 @@ template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } 
 
 
 class B {
-	int x[4];
-	int y[4];
+	int rows, columns;
+	vector<string> input;
 public:
 	B()
 	{
-		cin >> x[0] >> y[0] >> x[1] >> y[1];
+		cin >> rows >> columns;
+
+		REP(y, rows)
+			cin >> input[y];
 	}
 	void solve()
 	{
-		int vx{ x[1] - x[0] };
-		int vy{ y[1] - y[0] };
+		vector<string> row_compressed;
+		REP(y, rows)
+		{
+			bool anyBlack{ false };
+			for (char c : input[y])
+			{
+				if (c == '#')
+				{
+					anyBlack = true;
+					break;
+				}
+			}
+			if (anyBlack)
+				row_compressed.PB(input[y]);
+		}
 
-		x[2] = x[1] - vy;
-		y[2] = y[1] + vx;
+		vector<bool>anyBlack;
+		anyBlack.resize(SZ(row_compressed), false);
+		REP(x, SZ(row_compressed[0]))
+		{
+			REP(y, SZ(row_compressed))
+			{
+				if (row_compressed[y][x] == '#')
+				{
+					anyBlack[x] = true;
+					continue;
+				}
+			}
+		}
 
-		x[3] = x[2] - vx;
-		y[3] = y[2] - vy;
+		for()
 
-		cout << x[2] << " " << y[2] << " " << x[3] << " " << y[3] << endl;
+
 	}
 };
 

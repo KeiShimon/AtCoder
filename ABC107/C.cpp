@@ -28,33 +28,68 @@ template<class T>bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } 
 template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
 
 
-class B {
-	int x[4];
-	int y[4];
+class C {
+	int n, k;
+	vector<int> left, right;
 public:
-	B()
+	C()
 	{
-		cin >> x[0] >> y[0] >> x[1] >> y[1];
+		cin >> n >> k;
+		int tmp;
+		REP(i, n)
+		{
+			cin >> tmp;
+			if (tmp < 0)
+				left.PB( -tmp);
+			else
+				right.PB(tmp);
+		}
+		sort(ALL(left));
 	}
 	void solve()
 	{
-		int vx{ x[1] - x[0] };
-		int vy{ y[1] - y[0] };
+		int ans{ (pow(10, 9)) };
+		int cost_left, cost_right, use_right;
+		int n_items_left{ SZ(left) }, n_items_right{ SZ(right) };
 
-		x[2] = x[1] - vy;
-		y[2] = y[1] + vx;
+		if (n_items_right >= k)
+			ans = right[k - 1];
 
-		x[3] = x[2] - vx;
-		y[3] = y[2] - vy;
+		if (n_items_left >= 1)
+		{
+			REP(i, n_items_left)
+			{
 
-		cout << x[2] << " " << y[2] << " " << x[3] << " " << y[3] << endl;
+				use_right = k - i - 1;
+				if (use_right > n_items_right)
+					continue;
+
+				if (use_right == 0)
+				{
+					chmin(ans, left[k - 1]);
+					break;
+				}
+
+				if (i + 1 > k)
+					break;
+
+				cost_left = left[i];
+				cost_right = right[use_right - 1];
+
+				chmin(ans, 2 * cost_left + cost_right);
+				chmin(ans, cost_left + 2 * cost_right);
+			}
+		}
+
+		cout << ans << endl;
+
 	}
 };
 
 
 int main()
 {
-	B solution;
+	C solution;
 	solution.solve();
 
 	return 0;

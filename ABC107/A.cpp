@@ -28,33 +28,22 @@ template<class T>bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } 
 template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
 
 
-class B {
-	int x[4];
-	int y[4];
+class A {
 public:
-	B()
+	A()
 	{
-		cin >> x[0] >> y[0] >> x[1] >> y[1];
+
 	}
 	void solve()
 	{
-		int vx{ x[1] - x[0] };
-		int vy{ y[1] - y[0] };
 
-		x[2] = x[1] - vy;
-		y[2] = y[1] + vx;
-
-		x[3] = x[2] - vx;
-		y[3] = y[2] - vy;
-
-		cout << x[2] << " " << y[2] << " " << x[3] << " " << y[3] << endl;
 	}
 };
 
 
 int main()
 {
-	B solution;
+	A solution;
 	solution.solve();
 
 	return 0;
