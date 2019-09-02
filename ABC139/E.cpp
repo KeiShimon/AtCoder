@@ -4,7 +4,9 @@
 #include <numeric>
 #include <string>
 #include <string.h>
+#include <utility>
 #include <vector>
+#include <deque>
 
 #define REP(i,x) for(int i{ 0 }; i < (int)(x); i++)
 #define REPC(i,x) for(int i{ 0 }; i <= (int)(x); i++)
@@ -31,67 +33,84 @@ using namespace std;
 
 
 class E {
+	static const int MAX_N = 1001;
+	static const int MAX_V = MAX_N * (MAX_N - 1) / 2;
+	int id[MAX_N][MAX_N];
 	int n;
-	static const int MAX_DAYS = 3000;
-	vector<vector<int64>> table;
-	vector<vector<int>> reservation;
+	int n_vertices{ 0 };
+	vector<vector<int>> a;
+	vector<int> G[MAX_V];
+	int visited[MAX_V];
+	int distance[MAX_V];
+
+	int getID(int i, int j) { return (i > j) ? id[j][i] : id[i][j]; }
+
+	int dfs(int v)
+	{
+		if (visited[v])
+			return (visited[v] == 1) ? -1: distance[v];
+		visited[v]++;
+
+		distance[v] = 1;
+		for (int u : G[v])
+		{
+			int depth = dfs(u);
+			if (depth == -1)
+				return -1;
+			distance[v] = max(distance[v], depth + 1);
+		}
+
+		visited[v]++;
+		return distance[v];
+	}
+
 public:
 	E()
 	{
+		memset(visited, 0, sizeof visited);
 		cin >> n;
-		table.resize(n, vector<int64>(n, 0));
-		reservation.resize(n, vector<int>(MAX_DAYS, 0));
-		REP(p, n)
-			reservation[p][0] = 1;
-	}
-	void solve()
-	{
-		bool flag{ true };
-		int opponent;
-		int ans{ -1 };
-		REP(player, n)
+		a.resize(n, vector<int>(n - 1));
+
+		REP(i, n)
 		{
-			REP(i, n-1)
+			REP(j, n - 1)
 			{
-				int lastMatchDate{ -1};
-				cin >> opponent; --opponent;
-
-				if (!table[player][opponent])
-				{
-					int matchDay{ i + 1 };
-					while (reservation[player][matchDay])
-						matchDay++;
-					while (reservation[opponent][matchDay])
-						matchDay++;
-
-					reservation[player][matchDay] = reservation[opponent][matchDay] = 1;
-					table[player][opponent] = table[opponent][player] = matchDay;
-
-					chmax(ans, matchDay);
-					lastMatchDate = matchDay;
-				}
-
-				else
-				{
-					if (table[player][opponent] < lastMatchDate)
-					{
-						flag = false;
-						break;
-					}
-					else
-					{
-						lastMatchDate = table[player][opponent];
-					}
-				}
+				cin >> a[i][j];
+				--a[i][j];
 			}
-
-			if (!flag)
-				break;
 		}
 
-		if (flag) cout << ans << endl;
-		else cout << "-1" << endl;
+		REP(i, n)
+			REP(j, n)
+		{
+			if (i < j)
+				id[i][j] = n_vertices++;
+		}
 
+		REP(i, n)
+		{
+			REP(j, n - 1)
+				a[i][j] = getID(i, a[i][j]);
+
+			REP(j, n - 2)
+				G[a[i][j]].PB(a[i][j + 1]);
+		}
+	}
+
+	void solve()
+	{
+		int ans = 0;
+		REP(i, n_vertices)
+		{
+			int depth = dfs(i);
+			if (depth == -1)
+			{
+				cout << "-1" << endl;
+				return;
+			}
+			ans = max(ans, depth);
+		}
+		cout << ans << endl;
 	}
 };
 
