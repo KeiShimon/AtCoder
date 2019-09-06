@@ -2,22 +2,88 @@
 
 using namespace std;
 
-// 1-indexed 1-d BIT
+// 1-d BIT
+template <class Cls>
 struct BIT {
 private:
-	vector<int> bit;
+	vector<Cls> bit;
 	int n;
 
 public:
-	BIT(int n, bool initialize_one = false);
+	// constructors
+	BIT(int n);
 	BIT();
+	void init(int n);
 
-	void add(int idx, int val);
-	int sum(int idx);
+	// 1-indexed
+	void add(int idx, Cls val); 
+	
+	// sum for [1, idx] (1-indexed)
+	Cls sum(int idx);
+
+	// sum for [left, right) (1-indexed)
+	Cls sum(int left, int right);
+
 };
 
 
-// 1-indexed 2-d BIT
+////////// 1-d BIT implementation //////////
+
+// default constructor
+template <class Cls>
+BIT<Cls>::BIT()
+	: BIT(0)
+{}
+
+// constructor
+template <class Cls>
+BIT<Cls>::BIT(int n)
+	: bit(n + 1, 0), n{ n }
+{}
+
+// initializer
+template <class Cls>
+void BIT<Cls>::init(int n)
+{
+	bit.resize(n + 1, 0);
+	this->n = n;
+}
+
+
+// 1-indexed
+template <class Cls>
+void BIT<Cls>::add(int idx, Cls val)
+{
+	for (int i{ idx }; i <= n; i += i & (-i))
+		bit[i] += val;
+}
+
+// sum for [1, idx] (1-indexed)
+template <class Cls>
+Cls BIT<Cls>::sum(int idx)
+{
+	int ret{ 0 };
+	for (int i{ idx }; i > 0; i -= i & (-i))
+		ret += bit[i];
+
+	return ret;
+}
+
+
+// sum for [left, right) (1-indexed)
+template <class Cls>
+Cls BIT<Cls>::sum(int left, int right)
+{
+	return sum(right - 1) - sum(left - 1);
+}
+
+
+////////// END of 1-d BIT implementation //////////
+
+
+
+
+//  2-d BIT
 struct BIT_2D {
 private:
 	vector<vector<int>> bit;
@@ -30,44 +96,6 @@ public:
 	void add(int i, int j, int val);
 	int sum(int i, int j);
 };
-
-
-////////// 1-d BIT implementation //////////
-
-// constructor
-BIT::BIT() : BIT(0) {}
-BIT::BIT(int n, bool initialize_one = false)
-{
-	this->n = n;
-	if (!initialize_one)
-		bit.resize(n + 1, 0);
-	else
-	{
-		bit.resize(n + 1);
-		for (int i{ 1 }; i <= n; i++)
-			bit[i] = (i & (-i));
-	}
-}
-
-// add some value to some index
-void BIT::add(int idx, int val)
-{
-	for (int i{ idx }; i <= n; i += i & (-i))
-		bit[i] += val;
-}
-
-// get sum for [1, idx]
-int BIT::sum(int idx)
-{
-	int ret{ 0 };
-	for (int i{ idx }; i > 0; i -= i & (-i))
-		ret += bit[i];
-
-	return ret;
-}
-
-
-////////// END of 1-d BIT implementation //////////
 
 
 ////////// 2-d BIT implementation //////////
