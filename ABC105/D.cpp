@@ -10,7 +10,7 @@
 #define REP(i,x) for(int i{ 0 }; i < (int)(x); i++)
 #define REPC(i,x) for(int i{ 0 }; i <= (int)(x); i++)
 #define RREP(i,x) for(int i{ (int)(x) - 1 }; i >= 0 ;i--)
-#define RREPC(i,x) for(int i{ (int)(x)}; i > 0; i--)
+#define RREPC(i,x) for(int i{ (int)(x)}; i >= 0; i--)
 #define PB push_back
 #define MP make_pair
 #define F first
