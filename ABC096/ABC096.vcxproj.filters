@@ -27,5 +27,8 @@
     <ClCompile Include="D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="..\utils\prime\eratosthenes.cpp">
+      <Filter>リソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
