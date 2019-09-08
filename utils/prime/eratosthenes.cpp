@@ -24,6 +24,9 @@ void generatePrimes(int n)
 
 	for (int k{ 31 }; k <= n; k += 2)
 	{
+		if (!(k % 3))
+			continue;
+
 		flag = true;
 		int limit = (int)ceil(sqrt(k)) + 1;
 		int sz{ (int)primes.size() };
@@ -41,10 +44,9 @@ void generatePrimes(int n)
 	}
 
 	flag = true;
-	k = n;
 	for (int d : primes)
 	{
-		if (!(k % d))
+		if (!(n % d))
 		{
 			flag = false;
 			break;
@@ -52,7 +54,7 @@ void generatePrimes(int n)
 	}
 
 	if (flag)
-		primes.push_back(k);
+		primes.push_back(n);
 
 }
 
