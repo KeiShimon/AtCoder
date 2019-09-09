@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "prime", "prime\prime.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "utils", "utils\utils.vcxproj", "{3A731898-1A9E-4C92-9FE6-ECC6EA68A092}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "graph", "graph\graph.vcxproj", "{CAEE98A9-FD58-4B97-B0AF-5C02D796591C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{3A731898-1A9E-4C92-9FE6-ECC6EA68A092}.Release|x64.Build.0 = Release|x64
 		{3A731898-1A9E-4C92-9FE6-ECC6EA68A092}.Release|x86.ActiveCfg = Release|Win32
 		{3A731898-1A9E-4C92-9FE6-ECC6EA68A092}.Release|x86.Build.0 = Release|Win32
+		{CAEE98A9-FD58-4B97-B0AF-5C02D796591C}.Debug|x64.ActiveCfg = Debug|x64
+		{CAEE98A9-FD58-4B97-B0AF-5C02D796591C}.Debug|x64.Build.0 = Debug|x64
+		{CAEE98A9-FD58-4B97-B0AF-5C02D796591C}.Debug|x86.ActiveCfg = Debug|Win32
+		{CAEE98A9-FD58-4B97-B0AF-5C02D796591C}.Debug|x86.Build.0 = Debug|Win32
+		{CAEE98A9-FD58-4B97-B0AF-5C02D796591C}.Release|x64.ActiveCfg = Release|x64
+		{CAEE98A9-FD58-4B97-B0AF-5C02D796591C}.Release|x64.Build.0 = Release|x64
+		{CAEE98A9-FD58-4B97-B0AF-5C02D796591C}.Release|x86.ActiveCfg = Release|Win32
+		{CAEE98A9-FD58-4B97-B0AF-5C02D796591C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
