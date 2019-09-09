@@ -31,87 +31,39 @@ const ll LLMAX = 9223372036854775807;
 
 template<class T>bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
-void SWAP(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
-void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 using namespace std;
 
-class D {
-	int a, b;
+
+class B {
+	int n, x;
+	int mi{ INTMAX };
 public:
-	D()
+	B()
 	{
-		cin >> a >> b;
+		cin >> n >> x;
+		int tmp;
+		REP(i, n)
+		{
+			cin >> tmp;
+			x -= tmp;
+			chmin(mi, tmp);
+		}
 	}
 	void solve()
 	{
+		int ans{ n };
+		ans += x / mi;
 
-		vector<string> ans(100);
-		string whiterow(100, '.');
-		string brackrow(100, '#');
-		REP(i, 50)
-		{
-			ans[i] = whiterow;
-			ans[100 - i - 1] = brackrow;
-		}
+		cout << ans << endl;
 		
-		a--; b--;
-
-		while (a)
-		{
-			for (int row{ 99 }; row >= 50 && a; row-=2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && a; col += 2)
-				{
-					ans[row][col] = '.';
-					a--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && a; col += 2)
-				//	{
-				//		ans[row][col] = '.';
-				//		a--;
-				//	}
-				//}
-			}
-		}
-		while (b)
-		{
-			for (int row{ 0 }; row < 50 && b; row+= 2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && b; col += 2)
-				{
-					ans[row][col] = '#';
-					b--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && b; col += 2)
-				//	{
-				//		ans[row][col] = '#';
-				//		b--;
-				//	}
-				//}
-			}
-		}
-
-		cout << "100 100" << endl;
-		REP(i, 100)
-			cout << ans[i] << endl;
 	}
 };
 
 
 int main()
 {
-	D solution;
+	B solution;
 	solution.solve();
 
 	return 0;

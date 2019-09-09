@@ -36,82 +36,48 @@ void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 using namespace std;
 
-class D {
-	int a, b;
+typedef pair<int, int> tupii;
+
+class C {
+	int n;
+	vector<tupii> x;
 public:
-	D()
+	C()
 	{
-		cin >> a >> b;
+		cin >> n;
+		x.reserve(n);
+		int tmp;
+		REP(i, n)
+		{
+			cin >> tmp;
+			x.emplace_back(MP(tmp, i));
+		}
 	}
+
 	void solve()
 	{
 
-		vector<string> ans(100);
-		string whiterow(100, '.');
-		string brackrow(100, '#');
-		REP(i, 50)
-		{
-			ans[i] = whiterow;
-			ans[100 - i - 1] = brackrow;
-		}
-		
-		a--; b--;
+		sort(ALL(x), [](const tupii& left, const tupii& right) { return left.first < right.first; });
+		vector<int> ans(n);
 
-		while (a)
+		REP1C(i, n)
 		{
-			for (int row{ 99 }; row >= 50 && a; row-=2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && a; col += 2)
-				{
-					ans[row][col] = '.';
-					a--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && a; col += 2)
-				//	{
-				//		ans[row][col] = '.';
-				//		a--;
-				//	}
-				//}
-			}
-		}
-		while (b)
-		{
-			for (int row{ 0 }; row < 50 && b; row+= 2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && b; col += 2)
-				{
-					ans[row][col] = '#';
-					b--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && b; col += 2)
-				//	{
-				//		ans[row][col] = '#';
-				//		b--;
-				//	}
-				//}
-			}
+			if (i <= n / 2)
+				ans[x[i - 1].second] = x[n / 2].first;
+			else
+				ans[x[i - 1].second] = x[n / 2 - 1].first;
 		}
 
-		cout << "100 100" << endl;
-		REP(i, 100)
+		REP(i, n)
 			cout << ans[i] << endl;
+
 	}
 };
 
 
 int main()
 {
-	D solution;
+	C solution;
 	solution.solve();
 
 	return 0;

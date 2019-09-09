@@ -8,6 +8,8 @@
 #include <string.h>
 #include <vector>
 
+#include <tuple>
+
 #define REP(i,x) for(int i{ 0 }; i < (int)(x); i++)
 #define REPC(i,x) for(int i{ 0 }; i <= (int)(x); i++)
 #define RREP(i,x) for(int i{ (int)(x) - 1 }; i >= 0 ;i--)
@@ -22,7 +24,10 @@
 #define SZ(x) ((int)(x).size())
 #define ALL(x) (x).begin(),(x).end()
 
+using namespace std;
+
 typedef int64_t ll;
+typedef pair<int, int> pii;
 
 const int dx[4] = { 1, 0, -1,  0 };
 const int dy[4] = { 0, 1,  0, -1 };
@@ -34,77 +39,72 @@ template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } 
 void SWAP(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
 void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
-using namespace std;
+typedef tuple<int, int, int> tupiii;
 
 class D {
-	int a, b;
+	int rows, cols;
+	vector<string> field;
+	vector<vector<int>> dist;
+	int black{ 0 };
 public:
 	D()
 	{
-		cin >> a >> b;
+		cin >> rows >> cols;
+		field.resize(rows);
+		dist.resize(rows, vector<int>(cols, INTMAX));
+		REP(y, rows)
+		{
+			cin >> field[y];
+			REP(x, cols)
+				if (field[y][x] == '#')
+					++black;
+		}
 	}
+
+	int bfs()
+	{
+		deque<tupiii> q{ make_tuple(0, 0, 1) };
+
+		int x, y, d;
+		while (!q.empty())
+		{
+			y = get<0>(q.front());
+			x = get<1>(q.front());
+			d = get<2>(q.front());
+			q.pop_front();
+
+			if (y == rows - 1 && x == cols - 1)
+				return d;
+
+			REP(i, 4)
+			{
+				if (0 <= x + dx[i] && x + dx[i] < cols && 0 <= y + dy[i] && y + dy[i] < rows)
+					if (field[y + dy[i]][x + dx[i]] == '.' && dist[y + dy[i]][x + dx[i]] == INTMAX)
+					{
+						q.emplace_back(make_tuple(y + dy[i], x + dx[i], d + 1));
+						dist[y + dy[i]][x + dx[i]] = d + 1;
+					}
+			}
+
+		}
+
+		return -1;
+
+	}
+
 	void solve()
 	{
+		int d{ bfs() };
 
-		vector<string> ans(100);
-		string whiterow(100, '.');
-		string brackrow(100, '#');
-		REP(i, 50)
+		if (d == -1)
 		{
-			ans[i] = whiterow;
-			ans[100 - i - 1] = brackrow;
-		}
-		
-		a--; b--;
-
-		while (a)
-		{
-			for (int row{ 99 }; row >= 50 && a; row-=2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && a; col += 2)
-				{
-					ans[row][col] = '.';
-					a--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && a; col += 2)
-				//	{
-				//		ans[row][col] = '.';
-				//		a--;
-				//	}
-				//}
-			}
-		}
-		while (b)
-		{
-			for (int row{ 0 }; row < 50 && b; row+= 2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && b; col += 2)
-				{
-					ans[row][col] = '#';
-					b--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && b; col += 2)
-				//	{
-				//		ans[row][col] = '#';
-				//		b--;
-				//	}
-				//}
-			}
+			cout << -1 << endl;
+			return;
 		}
 
-		cout << "100 100" << endl;
-		REP(i, 100)
-			cout << ans[i] << endl;
+		else
+			cout << (rows * cols - black - d) << endl;
+
 	}
 };
 

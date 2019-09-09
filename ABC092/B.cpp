@@ -33,10 +33,10 @@ public:
 };
 
 
-int main()
-{
-	B solution;
-	solution.solve();
-
-	return 0;
-}
+//int main()
+//{
+//	B solution;
+//	solution.solve();
+//
+//	return 0;
+//}

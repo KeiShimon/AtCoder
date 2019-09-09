@@ -35,11 +35,11 @@ public:
 	}
 };
 
-
-int main()
-{
-	C solution;
-	solution.solve();
-
-	return 0;
-}
+//
+//int main()
+//{
+//	C solution;
+//	solution.solve();
+//
+//	return 0;
+//}

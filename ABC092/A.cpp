@@ -17,11 +17,11 @@ public:
 	A() { cin >> a >> b >> c >> d; }
 };
 
-
-int main()
-{
-	A solution;
-	solution.solve();
-
-	return 0;
-}
+//
+//int main()
+//{
+//	A solution;
+//	solution.solve();
+//
+//	return 0;
+//}

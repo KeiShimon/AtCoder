@@ -24,8 +24,8 @@
 
 typedef int64_t ll;
 
-const int dx[4] = { 1, 0, -1,  0 };
-const int dy[4] = { 0, 1,  0, -1 };
+const int dx[4] = { -1,  0 };
+const int dy[4] = {  0, -1 };
 const int INTMAX = 2147483647;
 const ll LLMAX = 9223372036854775807;
 
@@ -36,82 +36,73 @@ void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 using namespace std;
 
-class D {
-	int a, b;
+typedef pair<int, int> pii;
+
+class C {
+	int n;
+	int ans{ 0 };
+	vector<pii> red;
+	vector<pii> queries;
+	vector<bool> matched;
+
 public:
-	D()
+	C()
 	{
-		cin >> a >> b;
+		cin >> n;
+		red.reserve(n);
+		queries.reserve(n);
+		matched.resize(n, false);
+
+		int y, x;
+		REP(i, n)
+		{
+			cin >> y >> x;
+			red.emplace_back(MP(y, x));
+		}
+		REP(i, n)
+		{
+			cin >> y >> x;
+			queries.emplace_back(MP(y, x));
+		}
 	}
+
+	void search(const int& sy, const int& sx)
+	{
+		if (!sx || !sy)
+			return;
+
+		REP(i, n)
+		{
+
+			if (red[i].second < sx && red[i].first < sy && !matched[i])
+			{
+				ans++;
+				matched[i] = true;
+				return;
+			}
+
+		}
+
+	}
+
+
 	void solve()
 	{
+		sort(ALL(queries));
+		sort(ALL(red), [](const pii& left, const pii& right) { return (left.second > right.second); });
 
-		vector<string> ans(100);
-		string whiterow(100, '.');
-		string brackrow(100, '#');
-		REP(i, 50)
-		{
-			ans[i] = whiterow;
-			ans[100 - i - 1] = brackrow;
-		}
-		
-		a--; b--;
+		REP(i, n)
+			search(queries[i].first, queries[i].second);
 
-		while (a)
-		{
-			for (int row{ 99 }; row >= 50 && a; row-=2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && a; col += 2)
-				{
-					ans[row][col] = '.';
-					a--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && a; col += 2)
-				//	{
-				//		ans[row][col] = '.';
-				//		a--;
-				//	}
-				//}
-			}
-		}
-		while (b)
-		{
-			for (int row{ 0 }; row < 50 && b; row+= 2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && b; col += 2)
-				{
-					ans[row][col] = '#';
-					b--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && b; col += 2)
-				//	{
-				//		ans[row][col] = '#';
-				//		b--;
-				//	}
-				//}
-			}
-		}
+		cout << ans << endl;
 
-		cout << "100 100" << endl;
-		REP(i, 100)
-			cout << ans[i] << endl;
 	}
 };
 
-
 int main()
 {
-	D solution;
+
+	C solution;
 	solution.solve();
 
 	return 0;

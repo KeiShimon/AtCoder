@@ -23,6 +23,9 @@
 #define ALL(x) (x).begin(),(x).end()
 
 typedef int64_t ll;
+using namespace std;
+
+typedef pair<int, int> pii;
 
 const int dx[4] = { 1, 0, -1,  0 };
 const int dy[4] = { 0, 1,  0, -1 };
@@ -34,84 +37,25 @@ template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } 
 void SWAP(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
 void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
-using namespace std;
 
-class D {
-	int a, b;
+
+class A {
+	int n;
 public:
-	D()
+	A()
 	{
-		cin >> a >> b;
+		cin >> n;
 	}
 	void solve()
 	{
-
-		vector<string> ans(100);
-		string whiterow(100, '.');
-		string brackrow(100, '#');
-		REP(i, 50)
-		{
-			ans[i] = whiterow;
-			ans[100 - i - 1] = brackrow;
-		}
-		
-		a--; b--;
-
-		while (a)
-		{
-			for (int row{ 99 }; row >= 50 && a; row-=2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && a; col += 2)
-				{
-					ans[row][col] = '.';
-					a--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && a; col += 2)
-				//	{
-				//		ans[row][col] = '.';
-				//		a--;
-				//	}
-				//}
-			}
-		}
-		while (b)
-		{
-			for (int row{ 0 }; row < 50 && b; row+= 2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && b; col += 2)
-				{
-					ans[row][col] = '#';
-					b--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && b; col += 2)
-				//	{
-				//		ans[row][col] = '#';
-				//		b--;
-				//	}
-				//}
-			}
-		}
-
-		cout << "100 100" << endl;
-		REP(i, 100)
-			cout << ans[i] << endl;
+		cout << n / 3 << endl;
 	}
 };
 
 
 int main()
 {
-	D solution;
+	A solution;
 	solution.solve();
 
 	return 0;

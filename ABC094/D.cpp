@@ -36,75 +36,42 @@ void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 using namespace std;
 
+
 class D {
-	int a, b;
+	int n;
+	vector<int> a;
 public:
 	D()
 	{
-		cin >> a >> b;
+		cin >> n;
+		a.resize(n);
+		REP(i, n)
+			cin >> a[i];
 	}
+
 	void solve()
 	{
+		sort(ALL(a));
 
-		vector<string> ans(100);
-		string whiterow(100, '.');
-		string brackrow(100, '#');
-		REP(i, 50)
-		{
-			ans[i] = whiterow;
-			ans[100 - i - 1] = brackrow;
-		}
-		
-		a--; b--;
+		int k{ a.back() };
+		int target{ (k & 1) ? (k + 1) / 2 : k / 2 };
+		int r{ a[0] };
+		int diff{ INTMAX };
 
-		while (a)
+		REP(i, n)
 		{
-			for (int row{ 99 }; row >= 50 && a; row-=2)
+			int d{ abs(target - a[i]) };
+			if (d < diff)
 			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && a; col += 2)
-				{
-					ans[row][col] = '.';
-					a--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && a; col += 2)
-				//	{
-				//		ans[row][col] = '.';
-				//		a--;
-				//	}
-				//}
+				SWAP(diff, d);
+				r = a[i];
 			}
-		}
-		while (b)
-		{
-			for (int row{ 0 }; row < 50 && b; row+= 2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && b; col += 2)
-				{
-					ans[row][col] = '#';
-					b--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && b; col += 2)
-				//	{
-				//		ans[row][col] = '#';
-				//		b--;
-				//	}
-				//}
-			}
+			else if (a[i] > target)
+				break;
 		}
 
-		cout << "100 100" << endl;
-		REP(i, 100)
-			cout << ans[i] << endl;
+		cout << k << " " << r << endl;
+
 	}
 };
 

@@ -36,81 +36,96 @@ void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 using namespace std;
 
+
 class D {
-	int a, b;
+	int n;
+	static const int MAX_BIT{ 28 };
+	vector<int> arr_a;
+	vector<vector<int>> countbits;
+
 public:
 	D()
 	{
-		cin >> a >> b;
+		countbits.resize(2, vector<int>(MAX_BIT, 0));
+		cin >> n;
+		arr_a.resize(n);
+
+		REP(i, n)
+			cin >> arr_a[i];
+
+		int tmp;
+		REP(i, n)
+		{
+			cin >> tmp;
+
+			for (int bit{ 0 }; bit < MAX_BIT; bit++)
+			{
+				if (tmp & (1 << bit))
+					++countbits[1][bit];
+				else
+					++countbits[0][bit];
+			}
+		}
+
 	}
+
+	void debug(const vector<vector<int>>& v)
+	{
+		REP(i, 2)
+		{
+			REP(j, v.size())
+				cout << v[i][j] << " ";
+			cout << endl;
+		}
+
+	}
+
 	void solve()
 	{
 
-		vector<string> ans(100);
-		string whiterow(100, '.');
-		string brackrow(100, '#');
-		REP(i, 50)
+		int ans{ 0 };
+
+		debug(countbits);
+
+		for (int a : arr_a)
 		{
-			ans[i] = whiterow;
-			ans[100 - i - 1] = brackrow;
+			int tmpxor{ 0 };
+			vector<vector<int>> tmpCountBits{ countbits };
+
+			REPC(bit, MAX_BIT)
+			{
+				int a_bit{ 0 };
+				if (a & (1 << bit))
+					a_bit = 1;
+
+				int digit_contribution{ 0 };
+				if (a_bit)
+				{
+					if (tmpCountBits[0][bit] & 1)
+						digit_contribution = 1;
+					if (tmpCountBits[1][bit] & 1)
+						if (bit + 1 <= MAX_BIT)
+							tmpCountBits[1][bit + 1] += 1;
+				}
+				else
+				{
+					if (tmpCountBits[1][bit] & 1)
+						digit_contribution = 1;
+				}
+
+				tmpxor += (digit_contribution << bit);
+			}
+
+			ans ^= tmpxor;
 		}
 		
-		a--; b--;
-
-		while (a)
-		{
-			for (int row{ 99 }; row >= 50 && a; row-=2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && a; col += 2)
-				{
-					ans[row][col] = '.';
-					a--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && a; col += 2)
-				//	{
-				//		ans[row][col] = '.';
-				//		a--;
-				//	}
-				//}
-			}
-		}
-		while (b)
-		{
-			for (int row{ 0 }; row < 50 && b; row+= 2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && b; col += 2)
-				{
-					ans[row][col] = '#';
-					b--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && b; col += 2)
-				//	{
-				//		ans[row][col] = '#';
-				//		b--;
-				//	}
-				//}
-			}
-		}
-
-		cout << "100 100" << endl;
-		REP(i, 100)
-			cout << ans[i] << endl;
+		cout << ans << endl;
 	}
 };
 
-
 int main()
 {
+
 	D solution;
 	solution.solve();
 

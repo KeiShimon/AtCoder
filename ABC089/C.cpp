@@ -22,7 +22,10 @@
 #define SZ(x) ((int)(x).size())
 #define ALL(x) (x).begin(),(x).end()
 
+using namespace std;
+
 typedef int64_t ll;
+typedef pair<int, int> pii;
 
 const int dx[4] = { 1, 0, -1,  0 };
 const int dy[4] = { 0, 1,  0, -1 };
@@ -34,84 +37,44 @@ template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } 
 void SWAP(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
 void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
-using namespace std;
 
-class D {
-	int a, b;
+class C {
+	int count[26];
+	int n;
 public:
-	D()
+	C()
 	{
-		cin >> a >> b;
+		memset(count, 0, sizeof count);
+		cin >> n;
+		string name;
+		REP(i, n)
+		{
+			cin >> name;
+			++count[name[0] - 'A'];
+		}
+
 	}
 	void solve()
 	{
-
-		vector<string> ans(100);
-		string whiterow(100, '.');
-		string brackrow(100, '#');
-		REP(i, 50)
-		{
-			ans[i] = whiterow;
-			ans[100 - i - 1] = brackrow;
-		}
+		ll ans{ 0 };
 		
-		a--; b--;
+		const int idx[5]{ 'M' - 'A', 'A' - 'A' ,'R' - 'A' ,'C' - 'A' ,'H' - 'A' };
 
-		while (a)
-		{
-			for (int row{ 99 }; row >= 50 && a; row-=2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && a; col += 2)
-				{
-					ans[row][col] = '.';
-					a--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && a; col += 2)
-				//	{
-				//		ans[row][col] = '.';
-				//		a--;
-				//	}
-				//}
-			}
-		}
-		while (b)
-		{
-			for (int row{ 0 }; row < 50 && b; row+= 2)
-			{
-				//if (row & 1)
-				//{
-				for (int col{ 0 }; col < 100 && b; col += 2)
-				{
-					ans[row][col] = '#';
-					b--;
-				}
-				//}
-				//else
-				//{
-				//	for (int col{ 1 }; col < 100 && b; col += 2)
-				//	{
-				//		ans[row][col] = '#';
-				//		b--;
-				//	}
-				//}
-			}
-		}
+		for (int i{ 0 }; i < 3; i++)
+			for (int j{ i + 1 }; j < 4; j++)
+				for (int k{ j + 1 }; k < 5; k++)
+					ans += (ll)count[idx[i]] * count[idx[j]] * count[idx[k]];
 
-		cout << "100 100" << endl;
-		REP(i, 100)
-			cout << ans[i] << endl;
+		cout << ans << endl;
+		
+
 	}
 };
 
 
 int main()
 {
-	D solution;
+	C solution;
 	solution.solve();
 
 	return 0;
