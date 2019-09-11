@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BFS.cpp" />
+    <ClCompile Include="warshall_floyd.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="template.h" />
