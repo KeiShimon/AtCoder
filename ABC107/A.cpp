@@ -29,14 +29,15 @@ template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } 
 
 
 class A {
+	int n, i;
 public:
 	A()
 	{
-
+		cin >> n >> i;
 	}
 	void solve()
 	{
-
+		cout << n - i + 1 << endl;
 	}
 };
 

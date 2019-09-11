@@ -29,51 +29,74 @@ template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } 
 
 
 class B {
-	int rows, columns;
+	int rows, cols;
 	vector<string> input;
+	vector<string> res;
+	vector<bool> printCol;
 public:
 	B()
 	{
-		cin >> rows >> columns;
+		cin >> rows >> cols;
+		input.resize(rows);
+		printCol.resize(cols, false);
 
 		REP(y, rows)
 			cin >> input[y];
+
+
 	}
 	void solve()
 	{
-		vector<string> row_compressed;
+
 		REP(y, rows)
 		{
-			bool anyBlack{ false };
+			bool flag{ false };
 			for (char c : input[y])
 			{
 				if (c == '#')
 				{
-					anyBlack = true;
+					flag = true;
 					break;
 				}
 			}
-			if (anyBlack)
-				row_compressed.PB(input[y]);
+			if (flag)
+				res.PB(input[y]);
 		}
 
-		vector<bool>anyBlack;
-		anyBlack.resize(SZ(row_compressed), false);
-		REP(x, SZ(row_compressed[0]))
+		REP(x, cols)
 		{
-			REP(y, SZ(row_compressed))
+			bool flag{ false };
+
+			REP(y, SZ(res))
 			{
-				if (row_compressed[y][x] == '#')
+				if (res[y][x] == '#')
 				{
-					anyBlack[x] = true;
-					continue;
+					flag = true;
+					break;
 				}
 			}
+
+			printCol[x] = flag;
 		}
 
-		for()
+		REP(y, SZ(res))
+		{
+			REP(x, cols)
+				if (printCol[x])
+					cout << res[y][x];
+			cout << endl;
+		}
 
+	}
 
+	void debug()
+	{
+		REP(y, SZ(res))
+		{
+			REP(x, cols)
+				cout << res[y][x] << " ";
+			cout << endl;
+		}
 	}
 };
 
