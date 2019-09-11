@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\template\D.cpp" />
     <ClCompile Include="C.cpp" />
     <ClCompile Include="AB.cpp" />
     <ClCompile Include="D.cpp" />
