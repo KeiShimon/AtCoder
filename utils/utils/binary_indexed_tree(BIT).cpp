@@ -3,26 +3,28 @@
 using namespace std;
 
 // 1-d BIT
-template <class Cls>
+template <class T>
 struct BIT {
 private:
-	vector<Cls> bit;
+	vector<T> bit;
 	int n;
 
 public:
 	// constructors
 	BIT(int n);
 	BIT();
-	void init(int n);
+  void init(int n);
 
 	// 1-indexed
-	void add(int idx, Cls val); 
+	inline void add(int idx, T val); 
 	
 	// sum for [1, idx] (1-indexed)
-	Cls sum(int idx);
+	inline T sum(int idx);
 
 	// sum for [left, right) (1-indexed)
-	Cls sum(int left, int right);
+	inline T sum(int left, int right);
+
+	T operator[](int i);
 
 };
 
@@ -30,20 +32,20 @@ public:
 ////////// 1-d BIT implementation //////////
 
 // default constructor
-template <class Cls>
-BIT<Cls>::BIT()
+template <class T>
+BIT<T>::BIT()
 	: BIT(0)
 {}
 
 // constructor
-template <class Cls>
-BIT<Cls>::BIT(int n)
+template <class T>
+BIT<T>::BIT(int n)
 	: bit(n + 1, 0), n{ n }
 {}
 
 // initializer
-template <class Cls>
-void BIT<Cls>::init(int n)
+template <class T>
+void BIT<T>::init(int n)
 {
 	bit.resize(n + 1, 0);
 	this->n = n;
@@ -51,30 +53,37 @@ void BIT<Cls>::init(int n)
 
 
 // 1-indexed
-template <class Cls>
-void BIT<Cls>::add(int idx, Cls val)
+template <class T>
+inline void BIT<T>::add(int idx, T val)
 {
-	for (int i{ idx }; i <= n; i += i & (-i))
-		bit[i] += val;
+	for (; idx <= n; idx += idx & (-idx))
+		bit[idx] += val;
 }
 
 // sum for [1, idx] (1-indexed)
-template <class Cls>
-Cls BIT<Cls>::sum(int idx)
+template <class T>
+inline T BIT<T>::sum(int idx)
 {
 	int ret{ 0 };
-	for (int i{ idx }; i > 0; i -= i & (-i))
-		ret += bit[i];
+	for (; idx > 0; idx -= idx & (-idx))
+		ret += bit[idx];
 
 	return ret;
 }
 
 
 // sum for [left, right) (1-indexed)
-template <class Cls>
-Cls BIT<Cls>::sum(int left, int right)
+template <class T>
+inline T BIT<T>::sum(int left, int right)
 {
 	return sum(right - 1) - sum(left - 1);
+}
+
+
+template <class T>
+T BIT<T>::operator[](int i)
+{
+	return sum(i, i + 1);
 }
 
 
