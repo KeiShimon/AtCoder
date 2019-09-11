@@ -1,13 +1,69 @@
+#include <algorithm>
+#include <cmath>
+#include <deque>
 #include <iostream>
+#include <numeric>
+#include <sstream>
+#include <string>
+#include <string.h>
+#include <tuple>
+#include <vector>
+
+
+#define REP(i,x) for(int i{ 0 }; i < (int)(x); i++)
+#define REPC(i,x) for(int i{ 0 }; i <= (int)(x); i++)
+#define RREP(i,x) for(int i{ (int)(x) - 1 }; i >= 0 ;i--)
+#define RREPC(i,x) for(int i{ (int)(x)}; i >= 0; i--)
+#define REP1O(i,x) for(int i{ 1 }; i < (int)(x); i++)
+#define REP1C(i,x) for(int i{ 1 }; i <= (int)(x); i++)
+
+#define PB push_back
+#define MP make_pair
+#define F first
+#define S second
+#define SZ(x) ((int)(x).size())
+#define ALL(x) (x).begin(),(x).end()
 
 using namespace std;
 
-class D {
+typedef int64_t ll;
+typedef pair<int, int> pii;
+typedef tuple<int, int, int> tupiii;
 
+const int dx[4] = { 1, 0, -1,  0 };
+const int dy[4] = { 0, 1,  0, -1 };
+const int INTMAX = 2147483647;
+const ll LLMAX = 9223372036854775807;
+
+template<class T>bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
+void SWAP(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
+void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
+
+
+class D {
+	int n, k;
 public:
+	D()
+	{
+		cin >> n >> k;
+	}
 	void solve()
 	{
+		ll ans{ 0 };
+		for (int div{ k + 1}; div <= n; div++)
+		{
+			int loops{n / div};
+			ans += ((ll)div - 1 - (k - 1)) * loops;
+			ans += (ll)max(0, n - (div * loops + k) + 1);
+		}
 
+		if (k == 0)
+		{
+			ans -= (ll)n;
+		}
+
+		cout << ans << endl;
 	}
 };
 
