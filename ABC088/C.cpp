@@ -39,23 +39,50 @@ void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 
 class C {
-
+	int c[3][3];
 public:
 	C()
 	{
-
+		REP(i, 3)
+			REP(j, 3)
+			cin >> c[i][j];
 	}
 	void solve()
 	{
+		REP(i, 2)
+		{
+			if (c[i][0] - c[i + 1][0] == c[i][1] - c[i + 1][1] && c[i][1] - c[i + 1][1] == c[i][2] - c[i + 1][2])
+				continue;
+			else
+			{
+				cout << "No" << endl;
+				//cout << "when comparing row " << i << " and row" << i + 1 << endl;
+				return;
+			}
+		}
 
+		REP(j, 2)
+		{
+			if (c[0][j] - c[0][j + 1] == c[1][j] - c[1][j + 1]&& c[1][j] - c[1][j + 1] == c[2][j] - c[2][j + 1])
+				continue;
+			else
+			{
+				cout << "No" << endl;
+				//cout << "when comparing col " << j << "and col" << j + 1 << endl;
+				return;
+			}
+
+		}
+
+		cout << "Yes" << endl;
 	}
 };
 
-//
-//int main()
-//{
-//	C solution;
-//	solution.solve();
-//
-//	return 0;
-//}
+
+int main()
+{
+	C solution;
+	solution.solve();
+
+	return 0;
+}

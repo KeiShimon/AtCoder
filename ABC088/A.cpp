@@ -39,23 +39,27 @@ void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 
 class A {
-	
+	int n, a;
 public:
 	A()
 	{
-		
+		cin >> n >> a;
 	}
 	void solve()
 	{
+		if (n % 500 <= a)
+			cout << "Yes" << endl;
+		else
+			cout << "No" << endl;
 		
 	}
 };
 
 
-//int main()
-//{
-//	A solution;
-//	solution.solve();
-//
-//	return 0;
-//}
+int main()
+{
+	A solution;
+	solution.solve();
+
+	return 0;
+}

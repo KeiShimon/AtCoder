@@ -39,23 +39,40 @@ void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 
 class B {
-
+	int n;
+	vector<int> c;
 public:
 	B()
 	{
-
+		cin >> n;
+		c.resize(n);
+		REP(i, n)
+			cin >> c[i];
 	}
 	void solve()
 	{
+		sort(ALL(c));
 
+		int a{ 0 }, b{ 0 };
+
+		REP(i, n)
+		{
+			if (!(i & 1))
+				a += c[n - 1 -i];
+			else
+				b += c[n - 1 - i];
+
+		}
+
+		cout << a - b << endl;
 	}
 };
 
 
-//int main()
-//{
-//	B solution;
-//	solution.solve();
-//
-//	return 0;
-//}
+int main()
+{
+	B solution;
+	solution.solve();
+
+	return 0;
+}
