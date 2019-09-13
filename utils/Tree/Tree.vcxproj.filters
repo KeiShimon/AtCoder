@@ -6,16 +6,16 @@
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="テンプレートヘッダ">
-      <UniqueIdentifier>{00dec32f-f67d-4ea6-ad98-a3fde4ec4586}</UniqueIdentifier>
+      <UniqueIdentifier>{65506e8b-8a0b-4d94-aa03-14199ff6a34b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="binary_indexed_tree(BIT).cpp">
+    <ClCompile Include="DFS.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\graph\template.h">
+    <ClInclude Include="template.h">
       <Filter>テンプレートヘッダ</Filter>
     </ClInclude>
   </ItemGroup>

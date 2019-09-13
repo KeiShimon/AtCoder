@@ -1,4 +1,15 @@
-#include "template.h"
+﻿#include "template.h"
+
+
+/*
+	Warshall–Floyd Algorithm
+
+	O(V^3)
+
+	It makes a 2d table of minimum distances between each pair of points.
+
+*/
+
 
 template <class T>
 void warshall_froyd(vector<vector<T>>& v)

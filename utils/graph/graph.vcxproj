@@ -123,8 +123,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BFS.cpp" />
-    <ClCompile Include="warshall_floyd.cpp" />
+    <ClCompile Include="DFS Cost Directed.cpp" />
+    <ClCompile Include="Dijkstra.cpp" />
+    <ClCompile Include="Warshall-Floyd.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="template.h" />
