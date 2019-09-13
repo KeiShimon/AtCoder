@@ -123,6 +123,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\template\C.cpp" />
+    <ClCompile Include="..\template\D.cpp" />
+    <ClCompile Include="C.cpp" />
+    <ClCompile Include="D.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
