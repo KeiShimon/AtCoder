@@ -6,6 +6,7 @@
 #include <sstream>
 #include <string>
 #include <string.h>
+#include <tuple>
 #include <vector>
 
 #define REP(i,x) for(int i{ 0 }; i < (int)(x); i++)
@@ -25,7 +26,13 @@
 using namespace std;
 
 typedef int64_t ll;
+typedef vector<int> vi;
+typedef vector<ll> vll;
+typedef vector<vector<int>> vvi;
+typedef vector<vector<ll>> vvll;
 typedef pair<int, int> pii;
+typedef tuple<int, int, int> tupiii;
+typedef tuple<ll, ll, ll> tuplll;
 
 const int dx[4] = { 1, 0, -1,  0 };
 const int dy[4] = { 0, 1,  0, -1 };
@@ -38,110 +45,66 @@ void SWAP(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
 void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 
-#define FAIL cout << "No" << endl; return false;
-
 class D {
 	int n, m;
-	vector<int> pos;
 	vector<vector<pii>> g;
-	const int null{ 2000000000 };
-	int rightmost{ 0 };
-
+	vi loc;
+	int nul{ INTMAX };
 public:
 	D()
 	{
 		cin >> n >> m;
 		g.resize(n + 1);
-		pos.resize(n + 1, null);
-		
-		int u, v, d;
+		loc.resize(n + 1, nul);
+
 		REP(i, m)
 		{
-			cin >> u >> v >> d;
-			g[u].emplace_back(MP(v, d));
-		}
-	}
+			int l, r, d;
+			cin >> l >> r >> d;
 
-	bool dfs(int node, int frm , int cost)
-	{
-
-		//cout << "visiting " << node << endl;
-
-		// loop detection
-		if (pos[node] == -null)
-			return false;
-
-		if (pos[node] != null)
-		{
-			if (pos[node] != frm + cost)
-				return false;
-			else
-				return true;
-		}
-		else if (g[node].empty())
-		{
-			if (pos[node] == null)
-			{
-				if (frm == -null)
-					pos[node] = rightmost;
-				else
-					pos[node] = frm + cost;
-			}
-			return true;
-		}
-		else
-		{
-			if (frm != -null)
-				pos[node] = frm + cost;
-			else
-				pos[node] = -null;
+			g[l].emplace_back(MP(r, d));
+			g[r].emplace_back(MP(l, -d));
 		}
 
-
-		REP(i, SZ(g[node]))
-		{
-			int to{ g[node][i].first };
-			int d{ g[node][i].second };
-
-			if (!dfs(to, pos[node], d))
-				return false;
-
-			if (pos[node] == -null)
-			{
-				pos[node] = pos[to] - d;
-			}
-			else if (pos[node] + d != pos[to])
-				return false;
-
-		}
-
-		return true;
 	}
 
 	void solve()
 	{
 
-		REP(node, n + 1)
+		REP1C(i, n)
 		{
-			if (!g[node].empty() && pos[node] == null)
+
+			if (loc[i] == nul)
 			{
-				if (!dfs(node, -null, 0))
+				loc[i] = 0;
+				deque<int> que;
+				que.PB(i);
+
+				while (!que.empty())
 				{
-					cout << "No" << endl;
-					return;
+					int v = que.front(); que.pop_front();
+
+					REP(i, SZ(g[v]))
+					{
+						int nxt = g[v][i].first;
+						int c = g[v][i].second;
+
+						if (loc[nxt] == nul)
+						{
+							loc[nxt] = loc[v] + c;
+							que.PB(nxt);
+						}
+						else if (loc[nxt] != loc[v] + c)
+						{
+							cout << "No" << endl;
+							return;
+						}
+					}
 				}
 			}
 		}
 
 		cout << "Yes" << endl;
-
-	}
-
-	void debug()
-	{
-		REP(i, SZ(pos))
-			cout << i << " is at " << pos[i] << endl;
-
 	}
 };
 
@@ -153,3 +116,4 @@ int main()
 
 	return 0;
 }
+
