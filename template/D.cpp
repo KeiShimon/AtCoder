@@ -3,6 +3,7 @@
 #include <deque>
 #include <iostream>
 #include <numeric>
+#include <queue>
 #include <sstream>
 #include <string>
 #include <string.h>
@@ -34,15 +35,14 @@ typedef pair<int, int> pii;
 typedef tuple<int, int, int> tupiii;
 typedef tuple<ll, ll, ll> tuplll;
 
-const int dx[4] = { 1, 0, -1,  0 };
-const int dy[4] = { 0, 1,  0, -1 };
 const int INTMAX = 2147483647;
 const ll LLMAX = 9223372036854775807;
+const int MOD = 1000000007;
 
-template<class T>bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
-template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
-void SWAP(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
-void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
+template<class T> inline bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> inline bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
+void inline swap(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
+void inline swap(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 
 class D {
