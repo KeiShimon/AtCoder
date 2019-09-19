@@ -41,28 +41,13 @@ const int MOD = 1000000007;
 
 template<class T> inline bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
 template<class T> inline bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
-void inline swap(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
-void inline swap(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
+inline void swap(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
+inline void swap(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
-
-class D {
-
-public:
-	D()
-	{
-
-	}
-	void solve()
-	{
-
-	}
-};
 
 
 int main()
 {
-	D solution;
-	solution.solve();
 
-	return 0;
+
 }

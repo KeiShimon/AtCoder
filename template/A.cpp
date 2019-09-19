@@ -39,30 +39,15 @@ const int INTMAX = 2147483647;
 const ll LLMAX = 9223372036854775807;
 const int MOD = 1000000007;
 
-template<class T>bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
-template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
-void swap(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
-void swap(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
+template<class T> inline bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> inline bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
+inline void swap(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
+inline void swap(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
-
-class A {
-	
-public:
-	A()
-	{
-		
-	}
-	void solve()
-	{
-		
-	}
-};
 
 
 int main()
 {
-	A solution;
-	solution.solve();
 
-	return 0;
+
 }
