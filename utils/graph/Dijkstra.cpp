@@ -13,13 +13,10 @@
 
 //// MUST INCLUDE ////
 
-#include <queue>
-
 
 
 //// MUST HAVE EXTERNAL VARIABLES ////
 
-// number of vertices
 int n;
 
 

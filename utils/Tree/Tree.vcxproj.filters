@@ -15,7 +15,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="template.h">
+    <ClInclude Include="..\utils\template.h">
       <Filter>テンプレートヘッダ</Filter>
     </ClInclude>
   </ItemGroup>

@@ -23,6 +23,7 @@
     <ProjectGuid>{CAEE98A9-FD58-4B97-B0AF-5C02D796591C}</ProjectGuid>
     <RootNamespace>graph</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Graph</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -76,6 +77,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\simon\codes\AtCoder\utils\utils</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,10 +127,11 @@
   <ItemGroup>
     <ClCompile Include="DFS Cost Directed.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
+    <ClCompile Include="init Undir Weighted.cpp" />
+    <ClCompile Include="init Undir.cpp" />
+    <ClCompile Include="LowLink.cpp" />
+    <ClCompile Include="Prim.cpp" />
     <ClCompile Include="Warshall-Floyd.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="template.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
