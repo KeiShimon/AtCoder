@@ -44,6 +44,7 @@ template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } 
 void SWAP(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
 void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
+#include <iomanip>
 
 class D {
 	int n;
@@ -126,7 +127,7 @@ public:
 
 		ans /= 4;
 
-		cout << ans << endl;
+		cout <<setprecision(12) << ans << endl;
 
 		//REP(i, w)
 		//	cout << h[i] << " ";
