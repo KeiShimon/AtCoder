@@ -45,66 +45,64 @@ void inline swap(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
 void inline swap(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 
-class D {
-	int n;
-	vvll d;
-	vector<vector<bool>> done;
+int n;
+vvll d;
+vvll best;
+const ll inf = 10e50;
 
-public:
-	D()
-	{
-		cin >> n;
-		d.resize(n, vi(n));
-		done.resize(n, vector<bool>(n, 0));
+template <class T>
+void warshall_froyd(vector<vector<T>>& v)
+{
+	int n{ (int)v.size() };
 
+	REP(k, n)
 		REP(i, n)
-			done[i][i] = true;
+		REP(j, n)
+		v[i][j] = min(v[i][j], v[i][k] + v[k][j]);
+}
 
-		REP(i, n)
-			REP(j, n)
-			cin >> d[i][j];
 
-	}
+void init()
+{
+	cin >> n;
+	d.resize(n, vll(n));
+	best.resize(n, vll(n));
 
-	bool warshall_froyd(ll & ans)
+	REP(i, n)
+		REP(j, n)
 	{
-
-		REP(k, n)
-			REP(i, n)
-		{
-			bool flag = true;
-			ll best = LLMAX;
-			REP(j, n)
-			{
-				if (d[i][j] == d[i][k] + d[j][k])
-					flag = false;
-			}
-
-			if (flag)
-				ans += d[i][j];
-		}
-
-		return true;
+		cin >> d[i][j];
+		best[i][j] = d[i][j];
 	}
-
-	void solve()
-	{
-		ll ans = 0;
-		if (!warshall_froyd(ans))
-		{
-			cout << "-1" << endl;
-			return;
-		}
-
-		cout << ans / 2 << endl;
-	}
-};
-
+}
 
 int main()
 {
-	D solution;
-	solution.solve();
+	init();
 
-	return 0;
+	REP(k, n)
+		REP(i, n)
+		REP(j, n)
+	{
+		if (k == i || k == j || i == j || best[i][k] == inf || best[k][j] == inf)
+			continue;
+
+		if (best[i][k] + best[k][j] == d[i][j])
+			best[i][j] = inf;
+
+		else if (d[i][j] > best[i][k] + best[k][j])
+		{
+			cout << -1 << endl;
+			return 0;
+		}
+	}
+
+	ll ans = 0;
+	REP(i, n)
+		REP(j, n)
+		if (best[i][j] != inf)
+			ans += best[i][j];
+
+	cout << ans / 2 << endl;
+
 }
