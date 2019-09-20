@@ -2,10 +2,10 @@
 
 
 //// MUST INCLUDE ////
-typedef pair<ll, int> P;
 
 
 //// MUST HAVE EXTERNAL VARIABLES ////
+typedef pair<ll, int> P;
 vector<vector<P>> g;
 int n, m;
 
