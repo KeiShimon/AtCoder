@@ -71,11 +71,11 @@ bool unite(const tup& edge)
 
 	if (size_a < size_b)
 	{
-		swap(a, b); swap(size_a, size_b);
+		swap(a, b); swap(size_a, size_b); swap(root_a, root_b);
 	}
 
-	parent[a] += -size_b;
-	parent[b] = a;
+	parent[root_a] += -size_b;
+	parent[root_b] = root_a;
 
 	++n_mst;
 	c_mst += c;
