@@ -1,79 +1,98 @@
-#include <iostream>
+#include "template.h"
+
+
+//// MUST INCLUDE ////
 #include <unordered_map>
-#include <cmath>
-
-using namespace std;
 
 
-unordered_map<int, int> factorize(int n)
+//// MUST HAVE EXTERNAL VARIABLES ////
+
+void generatePrimes(int n);
+void factorize(int n);
+
+unordered_map<int, int> res;
+vector<int> primes;
+int donePrime = 1;
+
+
+void factorize(int n)
 {
-	unordered_map<int, int> res;
+	if (donePrime < n)
+		generatePrimes(n);
 
 	if (n < 2)
-		return res;
+		return;
 
-	int x{ n };
-	int cnt{ 0 };
+	if (!(n & 1))
+	{
+		int cnt = 1;
+		n >>= 1;
 
-	while (!(x & 1))
-	{
-		cnt++;
-		x >>= 1;
-	}
-	if (cnt)
-	{
-		res.insert(make_pair(2, cnt));
-		cnt = 0;
-	}
-
-	if (x > 2)
-	{
-		while (!(x % 3))
+		while (!(n & 1))
 		{
 			cnt++;
-			x /= 3;
+			n >>= 1;
+		}
+		auto p = res.insert(make_pair(2, cnt));
+		if (!p.second)
+			p.first->second += cnt;
+	}
+	
+	for (size_t i = 1; i < primes.size() && primes[i] <= n; i++)
+	{
+		int cnt = 0;
+		int d = primes[i];
+		while (!(n % d))
+		{
+			cnt++;
+			n /= d;
 		}
 		if (cnt)
 		{
-			res.insert(make_pair(3, cnt));
-			cnt = 0;
+			auto p = res.insert(make_pair(d, cnt));
+			if (!p.second)
+				p.first->second += cnt;
 		}
 	}
+}
 
-	if (x > 4)
-	{
-		while (!(x % 5))
-		{
-			cnt++;
-			x /= 5;
-		}
-		if (cnt)
-		{
-			res.insert(make_pair(5, cnt));
-			cnt = 0;
-		}
-	}
 
-	int limit{ sqrt(x) + 1 };
-	for (int d{ 7 }; d < limit; d += 2)
+void generatePrimes(int n)
+{
+	if (n <= donePrime)
+		return;
+
+	if (primes.empty())
+		primes.push_back(2);
+
+	if (primes.back() == 2 && n > 2)
+		primes.push_back(3);
+
+	bool flag;
+
+	for (int k = primes.back() + 2; k <= n; k += 2)
 	{
-		if (d % 3 == 0 || d % 5 == 0)
+		if (!(k % 3))
 			continue;
 
-		while (!(x % d))
+		flag = true;
+		int limit = (int)ceil(sqrt(k)) + 1;
+		int sz{ (int)primes.size() };
+		for (int i{ 2 }; i < sz && primes[i] <= limit; i++)
 		{
-			cnt++;
-			x /= d;
+			if (!(k % primes[i]))
+			{
+				flag = false;
+				break;
+			}
 		}
-		if (cnt)
+
+		if (flag)
 		{
-			res.insert(make_pair(d, cnt));
-			cnt = 0;
+			primes.push_back(k);
+			++sz;
 		}
 	}
 
-	if (x)
-		res.insert(make_pair(x, 1));
-
-	return res;
+	donePrime = n;
 }

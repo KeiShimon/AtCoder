@@ -125,6 +125,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ballman-Ford.cpp" />
     <ClCompile Include="DFS Cost Directed.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="init Undir Weighted.cpp" />

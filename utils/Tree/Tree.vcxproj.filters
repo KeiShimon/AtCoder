@@ -5,18 +5,10 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="テンプレートヘッダ">
-      <UniqueIdentifier>{65506e8b-8a0b-4d94-aa03-14199ff6a34b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DFS.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\utils\template.h">
-      <Filter>テンプレートヘッダ</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

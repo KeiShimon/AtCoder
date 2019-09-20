@@ -1,28 +1,25 @@
-#include <cmath>
-#include <vector>
+#include "template.h"
 
-using namespace std;
 
 vector<int> primes;
 void generatePrimes(int n);
+int donePrime = 1;
 
 
 void generatePrimes(int n)
 {
+	if (n <= donePrime)
+		return;
 
-	const int originPrimes[10]{ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29 };
+	if (primes.empty())
+		primes.push_back(2);
 
-	for (int i{ 0 }; i < 10; i++)
-	{
-		if (originPrimes[i] > n)
-			return;
+	if (primes.back() == 2 && n > 2)
+		primes.push_back(3);
 
-		primes.push_back(originPrimes[i]);
-	}
+	bool flag;
 
-	bool flag{ true };
-
-	for (int k{ 31 }; k <= n; k += 2)
+	for (int k = primes.back() + 2; k <= n; k += 2)
 	{
 		if (!(k % 3))
 			continue;
@@ -30,7 +27,7 @@ void generatePrimes(int n)
 		flag = true;
 		int limit = (int)ceil(sqrt(k)) + 1;
 		int sz{ (int)primes.size() };
-		for (int i{ 0 }; i < sz && primes[i] < limit; i++)
+		for (int i{ 2 }; i < sz && primes[i] <= limit; i++)
 		{
 			if (!(k % primes[i]))
 			{
@@ -40,21 +37,22 @@ void generatePrimes(int n)
 		}
 
 		if (flag)
-			primes.push_back(k);
-	}
-
-	flag = true;
-	for (int d : primes)
-	{
-		if (!(n % d))
 		{
-			flag = false;
-			break;
+			primes.push_back(k);
+			++sz;
 		}
 	}
 
-	if (flag)
-		primes.push_back(n);
-
+	donePrime = n;
 }
 
+//int main()
+//{
+//	generatePrimes(100);
+//	generatePrimes(50);
+//	generatePrimes(200);
+//
+//	REP(i, SZ(primes))
+//		cout << primes[i] << " ";
+//	cout << endl;
+//}
