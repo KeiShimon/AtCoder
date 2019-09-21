@@ -51,6 +51,8 @@ int n, m;
 vector<vector<P>> g;
 vll d; // init INF!!
 ll INF;
+vector<bool> negative;
+
 
 void init()
 {
@@ -95,11 +97,35 @@ bool Bellman_Ford(int src)
 	return false;
 }
 
+void check()
+{
+	negative.resize(n, false);
+
+	REP(i, n)
+		REP(v, SZ(g))
+		REP(i, SZ(g[v]))
+	{
+		int adj = g[v][i].second;
+		ll c = g[v][i].first;
+		if (chmin(d[adj], d[v] + c))
+			negative[adj] = true;
+
+		if (negative[v])
+			negative[adj] = true;
+	}
+
+}
+
+// http://drken1215.hatenablog.com/entry/2019/02/16/075900
+
 int main()
 {
 	init();
 
-	if (Bellman_Ford(0))
+	Bellman_Ford(0);
+	check();
+	
+	if (negative[n - 1])
 	{
 		cout << "inf" << endl;
 		return 0;
