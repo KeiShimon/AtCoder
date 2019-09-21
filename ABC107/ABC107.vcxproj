@@ -124,11 +124,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\template\D.cpp" />
-    <ClCompile Include="..\utils\utils\binary_indexed_tree(BIT).cpp" />
+    <ClCompile Include="..\utils\Data Structure\BIT.cpp" />
     <ClCompile Include="A.cpp" />
     <ClCompile Include="B.cpp" />
     <ClCompile Include="C.cpp" />
-    <ClCompile Include="D_not_answered.cpp" />
+    <ClCompile Include="D.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
