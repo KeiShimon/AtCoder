@@ -130,6 +130,7 @@
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="init Undir Weighted.cpp" />
     <ClCompile Include="init Undir.cpp" />
+    <ClCompile Include="Kruskal.cpp" />
     <ClCompile Include="LowLink.cpp" />
     <ClCompile Include="Prim.cpp" />
     <ClCompile Include="Warshall-Floyd.cpp" />
