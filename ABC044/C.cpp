@@ -45,19 +45,30 @@ inline void swap(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
 inline void swap(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
 
 
+ll dp[51][51][2501];
 
 int main()
 {
-	int n, a;
-	vi x;
-	cin >> n >> a;
-	x.resize(n);
+	int n, a;	cin >> n >> a;
+	vi x(n);
 	REP(i, n)
 		cin >> x[i];
-	sort(ALL(x));
 
-	int ans = 0;
+	memset(dp, 0LL, sizeof dp);
+	dp[0][0][0] = 1;
 
+	REP1C(i, n) // lim of id, open-end
+		REPC(nc, i) // no of using cards
+		REPC(s, 2500) // sum
+	{
+		dp[i][nc][s] += dp[i - 1][nc][s];
 
+		if (nc >= 1 && s - x[i - 1] >= 0)
+			dp[i][nc][s] += dp[i - 1][nc - 1][s - x[i - 1]];
+	}
 
+	ll ans = 0;
+	REP1C(nc, n)
+		ans += dp[n][nc][nc * a];
+	cout << ans << endl;
 }
