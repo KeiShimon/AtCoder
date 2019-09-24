@@ -52,7 +52,7 @@ bool Bellman_Ford(int src)
 }
 
 
-vector<bool> negative;
+vector<bool> negative; // all nodes that are effected by negative loop will become true
 
 void check()
 {

@@ -1,12 +1,11 @@
-#include <iostream>
-#include <vector>
+#include "template.h"
 
-using namespace std;
 
-const int MOD = 1000000007;
-
+int64_t comb(int64_t, int64_t);
+int64_t comb(int, int);
 vector<int64_t> factMemo{ 1,1 }, factInvMemo{ 1, 1 }, invMemo{ 0, 1 };
 int curMax{ 1 };
+void initTable(int);
 
 
 void initTable(int n) {
@@ -26,10 +25,9 @@ void initTable(int n) {
 
 
 // calculate mod of combination
+int64_t comb(int64_t n, int64_t k) { return comb((int)n, (int)k); }
 int64_t comb(int n, int k) {
-	if (n < k)
-		return 0;
-	if (n < 0 || k < 0)
+	if (n < k || n < 0 || k < 0)
 		return 0;
 
 	if (curMax < n)
@@ -37,10 +35,3 @@ int64_t comb(int n, int k) {
 
 	return factMemo[n] * (factInvMemo[k] * factInvMemo[n - k] % MOD) % MOD;
 }
-
-
-int64_t comb(int64_t n, int64_t k)
-{
-	return comb((int)n, (int)k);
-}
-

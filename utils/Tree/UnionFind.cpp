@@ -31,7 +31,7 @@ bool unite(int a, int b)
 
 	if (size_a < size_b)
 	{
-		swap(a, b); swap(size_a, size_b);
+		swap(a, b); swap(size_a, size_b); swap(root_a, root_b);
 	}
 
 	parent[root_a] += -size_b;
