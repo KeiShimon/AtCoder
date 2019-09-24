@@ -48,95 +48,99 @@ template <class T>
 struct BIT {
 private:
 	vector<T> data;
-	int n;
+	int ma;
+	int maid;
 
 public:
+	// [0, n] is the value you can deal
 	BIT(int n);
 	BIT();
 	void init(int n);
 
-	// 1-indexed
-	void add(int idx, T val);
+	void add(int a, T val);
 
-	// sum for [1, idx] (1-indexed)
-	T sum(int idx);
+	// sum up to a (close-end)
+	T sum(int a);
 
-	// sum for [l, r) (1-indexed)
+	// sum for [l, r)
 	T sum(int left, int right);
 
-	T operator[](int i);
+	T operator()(int a);
+
+	void print()
+	{
+		REP1C(i, maid) cout << sum(i, i + 1) << ",";
+		cout << endl;
+	}
 };
 
 int n;
-vi va;
+vi va, va_sorted;
 ll n_totsect;
 
 void init()
 {
 	cin >> n;
 	n_totsect = (ll)n * ((ll)n + 1) / 2;
-	va.resize(n);
+	va.resize(n); va_sorted.resize(n);
 	REP(i, n)
+	{
 		cin >> va[i];
+		va_sorted[i] = va[i];
+	}
+	sort(ALL(va_sorted));
 }
 
 bool check(int x)
 {
-	BIT<ll> bit(2 * n + 3);
+	BIT<ll> bit(2 * n);
 	ll n_sect = 0;
 	int sum = 0;
-	const int offset = n + 1;
 
-	bit.add(offset, 1);
+	bit.add(n, 1);
 
 	REP(i, n)
 	{
 		sum += (va[i] <= x) ? 1 : -1;
-		n_sect += bit.sum(sum + offset);
-		bit.add(sum + offset, 1);
+		n_sect += bit.sum(sum + n - 1);
+		bit.add(sum + n, 1);
 	}
 
-	if (n_sect > n_totsect / 2)
-		return true;
-	else
-		return false;
+	return n_sect > n_totsect / 2;
 }
 
 int main()
 {
 	init();
 
-	int ng = 0, ok = 1 << 30;
-	while (ng < ok)
+	int ng = 0, ok = n - 1;
+	while (ok - ng > 1)
 	{
 		int md = (ok + ng) / 2;
-		if (check(md)) ok = md;
-		else ng = md;
+		if (check(va_sorted[md]))
+			ok = md;
+		else
+			ng = md;
 	}
 
-	cout << ok << endl;
+	cout << va_sorted[ok] << endl;
 }
 
 ////////// 1-d BIT implementation //////////
 
-// default constructor
-template <class T> BIT<T>::BIT() : BIT(0) {}
+// [0, n] is the value you can deal
+template <class T> BIT<T>::BIT(int n) : data(n + 2, (T)0), ma{ n }, maid{ n + 1 } {}
+template <class T> BIT<T>::BIT() : BIT(1000) {}
+template <class T> void BIT<T>::init(int n) { data.assign(n + 2, (T)0); this->ma = n; this->maid = n + 1; }
 
-// constructor
-template <class T> BIT<T>::BIT(int n) : data(n + 1, (T)0), n{ n } {}
+template <class T> void BIT<T>::add(int a, T val) { for (++a; a <= maid; a += a & (-a)) data[a] += val; }
 
-// initializer
-template <class T> void BIT<T>::init(int n) { data.resize(n + 1, (T)0); this->n = n; }
+// sum up to a (close-end)
+template <class T> T BIT<T>::sum(int a) { T ret{ 0 }; for (++a; a > 0; a -= a & (-a)) ret += data[a]; return ret; }
 
-// add method (1-indexed)
-template <class T> void BIT<T>::add(int idx, T val) { for (; idx <= n; idx += idx & (-idx)) data[idx] += val; }
-
-// sum for [1, idx] (1-indexed)
-template <class T> T BIT<T>::sum(int idx) { T ret{ 0 }; for (; idx > 0; idx -= idx & (-idx)) ret += data[idx]; return ret; }
-
-// sum for [l, r) (1-indexed)
+// sum for [l, r)
 template <class T> T BIT<T>::sum(int left, int right) { return sum(right - 1) - sum(left - 1); }
 
-template <class T> T BIT<T>::operator[](int i) { return sum(i) - sum(i - 1); }
+template <class T> T BIT<T>::operator()(int a) { if (0 <= a && a <= ma) return sum(a) - sum(a - 1); }
 
 ////////// END of 1-d BIT implementation //////////
