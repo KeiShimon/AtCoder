@@ -8,9 +8,11 @@ class A {
 	int i;
 
 public:
+	A() {
+		cin >> s >> i;
+	}
 	void solve()
 	{
-		cin >> s >> i;
 		cout << s[i - 1] << endl;
 	}
 };
