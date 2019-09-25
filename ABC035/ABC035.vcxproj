@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{DF37F222-C6D4-4516-A3C7-8562207CA188}</ProjectGuid>
+    <ProjectGuid>{51f550a9-73c8-4d02-9bc5-4cf8ec3ee63e}</ProjectGuid>
     <RootNamespace>ABC035</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -123,7 +123,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="A.cpp" />
+    <ClCompile Include="B.cpp" />
+    <ClCompile Include="C.cpp" />
+    <ClCompile Include="D.cpp" />
+    <ClCompile Include="E.cpp" />
+    <ClCompile Include="F.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="template.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
