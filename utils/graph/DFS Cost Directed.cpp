@@ -10,10 +10,9 @@
 //// MUST HAVE EXTERNAL VARIABLES ////
 
 int n, m;
-vector<vector<pair<int, ll>>> g;
-vll loc;
+vector<vector<pair<ll, int>>> g;
+vll d;
 ll nul{ LLMAX };
-
 
 
 //// BODY ////
@@ -22,38 +21,37 @@ void init()
 {
 	cin >> n >> m;
 	g.resize(n + 1);
-	loc.resize(n + 1, LLMAX);
+	d.resize(n + 1, LLMAX);
 
 	REP(i, m)
 	{
 		int a, b, c;
 		cin >> a >> b >> c;
 
-		g[a].emplace_back(MP(b, c));
+		g[a].emplace_back(MP(c, b));
 	}
 }
 
 
-template <class Tidx, class Tdist>
-void dfs(const vector<vector<pair<Tidx, Tdist>>>& g, vector<Tdist>& d, const Tidx frm)
+void dfs(const int frm)
 {
-	queue<Tidx> que;
+	queue<int> que;
 	que.push(frm);
 	d[frm] = 0;
 
 	while (!que.empty())
 	{
-		Tidx v = que.top(); que.pop();
+		int v = que.front(); que.pop();
 
 		REP(i, SZ(g[v]))
 		{
-			Tidx adj = g[v][i].first;
-			Tdist c = g[v][i].second;
+			int adj = g[v][i].first;
+			ll c = g[v][i].second;
 
 			if (d[adj] == nul)
 			{
 				d[adj] = d[v] + c;
-				que.PB(adj);
+				que.push(adj);
 			}
 		}
 	}

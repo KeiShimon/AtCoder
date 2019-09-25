@@ -126,6 +126,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="factorial.cpp" />
+    <ClCompile Include="Mod Int.cpp" />
     <ClCompile Include="mod_of_combination.cpp" />
     <ClCompile Include="inverse_in_mod.cpp" />
   </ItemGroup>

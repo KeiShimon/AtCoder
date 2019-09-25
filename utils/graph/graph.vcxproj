@@ -127,12 +127,14 @@
   <ItemGroup>
     <ClCompile Include="Ballman-Ford.cpp" />
     <ClCompile Include="DFS Cost Directed.cpp" />
-    <ClCompile Include="Dijkstra.cpp" />
+    <ClCompile Include="Dijkstra%28BFS%29.cpp" />
     <ClCompile Include="init Undir Weighted.cpp" />
     <ClCompile Include="init Undir.cpp" />
     <ClCompile Include="Kruskal.cpp" />
     <ClCompile Include="LowLink.cpp" />
     <ClCompile Include="Prim.cpp" />
+    <ClCompile Include="Topological Sort and Loop Detection.cpp" />
+    <ClCompile Include="Topological Sort.cpp" />
     <ClCompile Include="Warshall-Floyd.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
