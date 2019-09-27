@@ -125,6 +125,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Comb.cpp" />
+    <ClCompile Include="Divisors.cpp" />
     <ClCompile Include="GCD, LCM.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

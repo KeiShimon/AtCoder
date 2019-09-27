@@ -9,7 +9,7 @@
 
 
 //// MUST HAVE EXTERNAL VARIABLES ////
-vvi nxt;
+VVi nxt;
 int n;
 string s;
 
@@ -18,13 +18,11 @@ string s;
 
 void init()
 {
-	nxt.resize(n + 1, vi(26, n));
+	nxt.resize(n + 1, Vi(26, n));
 
 	RREP(i, n)
 	{
-		REP(j, 26)
-			nxt[i][j] = nxt[i + 1][j];
+		REP(j, 26) nxt[i][j] = nxt[i + 1][j];
 		nxt[i][s[i] - 'a'] = i;
 	}
-
 }
