@@ -19,7 +19,6 @@
 
 int n;
 vector<vector<int>> g;
-vector<bool> visited;
 
 
 //// BODY ////
@@ -27,36 +26,33 @@ vector<bool> visited;
 void init()
 {
 	cin >> n;
-	g.resize(n + 1);
-	visited.resize(n + 1);
+	g.resize(n);
 
 	REP(i, n - 1)
 	{
 		int a, b;
 		cin >> a >> b;
-
+		--a; --b;
 		g[a].push_back(b);
 		g[b].push_back(a);
 	}
 }
 
 template <class Tidx>
-void dfs(Tidx v, Tidx frm)
+void dfs(Tidx v, Tidx par)
 {
 	// pre-order operations if any
-	visited[v] = true;
 
-
-		for (Tidx adj : g[v])
+	for (Tidx adj : g[v])
+	{
+		if (adj != par)
 		{
-			if (!visited[adj])
-			{
 				
-			}
 		}
-
-		// post-order operations if any
-
 	}
+
+	// post-order operations if any
+
 }
+
 

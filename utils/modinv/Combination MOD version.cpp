@@ -1,11 +1,12 @@
 #include "template.h"
 
 
-int64_t comb(int64_t, int64_t);
-int64_t comb(int, int);
-vector<int64_t> factMemo{ 1,1 }, factInvMemo{ 1, 1 }, invMemo{ 0, 1 };
-int curMax{ 1 };
+ll comb(ll, ll);
+ll comb(int, int);
 void initTable(int);
+
+vector<ll> factMemo{ 1,1 }, factInvMemo{ 1, 1 }, invMemo{ 0, 1 };
+int curMax{ 1 };
 
 
 void initTable(int n) {
@@ -25,8 +26,8 @@ void initTable(int n) {
 
 
 // calculate mod of combination
-int64_t comb(int64_t n, int64_t k) { return comb((int)n, (int)k); }
-int64_t comb(int n, int k) {
+ll comb(ll n, ll k) { return comb((int)n, (int)k); }
+ll comb(int n, int k) {
 	if (n < k || n < 0 || k < 0)
 		return 0;
 

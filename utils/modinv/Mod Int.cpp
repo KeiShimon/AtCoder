@@ -19,5 +19,6 @@ struct mint {
 };
 istream& operator>>(istream& i, mint& a) { i >> a.x; return i; }
 ostream& operator<<(ostream& o, const mint& a) { o << a.x; return o; }
+typedef vector<mint> Vm;
 
 /////////////////////
