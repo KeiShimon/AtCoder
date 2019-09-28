@@ -1,98 +1,68 @@
 #include "template.h"
 
 
-//// MUST INCLUDE ////
-#include <unordered_map>
-
-
 //// MUST HAVE EXTERNAL VARIABLES ////
 
-void generatePrimes(int n);
-void factorize(int n);
+template <class T> void generatePrimes(T n);
+template <class T> void factorize(T n);
 
-unordered_map<int, int> res;
-vector<int> primes;
-int donePrime = 1;
+map<ll, int> res;
+vector<ll> primes;
+int listedPrimesUpto = 1;
 
 
-void factorize(int n)
+//// BODY ////
+
+template <class T> void factorize(T n)
 {
-	if (donePrime < n)
-		generatePrimes(n);
-
 	if (n < 2)
 		return;
 
-	if (!(n & 1))
-	{
-		int cnt = 1;
-		n >>= 1;
+	T rt = (T)ceil(sqrt(n));
+	if (listedPrimesUpto < rt) generatePrimes(rt);
 
-		while (!(n & 1))
-		{
-			cnt++;
-			n >>= 1;
-		}
-		auto p = res.insert(make_pair(2, cnt));
-		if (!p.second)
-			p.first->second += cnt;
-	}
-	
-	for (size_t i = 1; i < primes.size() && primes[i] <= n; i++)
+	for (T p : primes)
 	{
+		if (rt < p) break;
+
 		int cnt = 0;
-		int d = primes[i];
-		while (!(n % d))
+
+		while (!(n % p))
 		{
+			n /= p;
 			cnt++;
-			n /= d;
 		}
+
 		if (cnt)
-		{
-			auto p = res.insert(make_pair(d, cnt));
-			if (!p.second)
-				p.first->second += cnt;
-		}
+			res[p] += cnt;
 	}
+
+	if (n != 1) res[n]++;
 }
 
 
-void generatePrimes(int n)
+template <class T> void generatePrimes(T n)
 {
-	if (n <= donePrime)
-		return;
+	if (n <= listedPrimesUpto) return;
+	if (primes.empty()) primes.push_back(2);
+	if (primes.back() == 2 && n > 2) primes.push_back(3);
 
-	if (primes.empty())
-		primes.push_back(2);
+	bool isPrime;
 
-	if (primes.back() == 2 && n > 2)
-		primes.push_back(3);
-
-	bool flag;
-
-	for (int k = primes.back() + 2; k <= n; k += 2)
+	for (T k = primes.back() + 2; k <= n; k += 2)
 	{
-		if (!(k % 3))
-			continue;
+		if (!(k % 3)) continue;
 
-		flag = true;
-		int limit = (int)ceil(sqrt(k)) + 1;
-		int sz{ (int)primes.size() };
-		for (int i{ 2 }; i < sz && primes[i] <= limit; i++)
+		isPrime = true;
+		T lim = (T)ceil(sqrt(k));
+
+		for (T p : primes)
 		{
-			if (!(k % primes[i]))
-			{
-				flag = false;
-				break;
-			}
+			if (p > lim) break;
+			if (!(k % p)) { isPrime = false; break; }
 		}
 
-		if (flag)
-		{
-			primes.push_back(k);
-			++sz;
-		}
+		if (isPrime) primes.push_back(k);
 	}
-
-	donePrime = n;
+	listedPrimesUpto = n;
 }
