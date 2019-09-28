@@ -16,7 +16,7 @@ Vi divisors;
 //// BODY ////
 
 template <class T>
-void getDivisors(T n, vector<T> v)
+void getDivisors(T n, vector<T>& v)
 {
 	T lim = (T)ceil(sqrt(n));
 
