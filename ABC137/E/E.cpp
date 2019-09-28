@@ -19,6 +19,7 @@
 #define RREPC(i,x) for(int i{ (int)(x)}; i >= 0; i--)
 #define REP1O(i,x) for(int i{ 1 }; i < (int)(x); i++)
 #define REP1C(i,x) for(int i{ 1 }; i <= (int)(x); i++)
+#define REPIT(i,x) for(auto i{(x).begin()}; i != (x).end(); i++) 
 
 #define PB push_back
 #define MP make_pair
@@ -52,10 +53,64 @@ const int inf = 1 << 30;
 const ll linf = 1LL << 60;
 const int MOD = 1000000007;
 
+typedef tuple<int, int, ll> tup;
+vector<tup> edges;
+
+int n, m;
+ll p;
+Vl d;
+Vb loop, accessible;
 
 void init()
 {
+	cin >> n >> m >> p;
 
+	d.resize(n, -linf);
+	d[0] = 0;
+	accessible.resize(n, false);	
+	accessible[0] = true;
+	loop.resize(n, false);
+
+	edges.reserve(m);
+	REP(i, m)
+	{
+		int a, b; ll c; cin >> a >> b >> c;
+		--a; --b;
+		c -= p;
+		edges.emplace_back(tup(a, b, c));
+	}
+}
+
+void pseudo_BellmanFord()
+{
+	REP(_i, n - 1)
+		for (tup edge : edges)
+		{
+			int a = get<0>(edge);
+			int b = get<1>(edge);
+			ll c = get<2>(edge);
+			chmax(d[b], d[a] + c);
+
+			if (!a || accessible[a])
+				accessible[b] = true;
+		}
+
+	REP(_i, n)
+		for (tup edge : edges)
+		{
+			int a = get<0>(edge);
+			int b = get<1>(edge);
+			ll c = get<2>(edge);
+
+			if (chmax(d[b], d[a] + c))
+			{
+				if (accessible[b])
+					loop[b] = true;
+			}
+
+			if (accessible[a] && loop[a])
+				loop[b] = true;
+		}
 }
 
 
@@ -63,5 +118,16 @@ int main()
 {
 	init();
 
+	pseudo_BellmanFord();
 
+	if (loop[n - 1])
+	{
+		cout << -1 << endl;
+		return 0;
+	}
+
+	if (d[n - 1] < 0)
+		cout << 0 << endl;
+	else
+		cout << d[n - 1] << endl;	
 }
