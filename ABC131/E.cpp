@@ -1,16 +1,7 @@
 #include <algorithm>
-#include <cmath>
-#include <deque>
-#include <iomanip>
 #include <iostream>
-#include <limits.h>
 #include <map>
-#include <numeric>
 #include <queue>
-#include <sstream>
-#include <string>
-#include <string.h>
-#include <tuple>
 #include <vector>
 
 #define REP(i,x) for(int i{ 0 }; i < (int)(x); i++)
@@ -19,7 +10,6 @@
 #define RREPC(i,x) for(int i{ (int)(x)}; i >= 0; i--)
 #define REP1O(i,x) for(int i{ 1 }; i < (int)(x); i++)
 #define REP1C(i,x) for(int i{ 1 }; i <= (int)(x); i++)
-#define REPIT(i,x) for(auto i{(x).begin()}; i != (x).end(); i++) 
 
 #define PB push_back
 #define MP make_pair
@@ -28,35 +18,15 @@
 
 using namespace std;
 
-typedef int64_t ll;
-typedef double dbl;
-typedef vector<bool> Vb;
-typedef vector<char> Vc;
-typedef vector<double> Vd;
 typedef vector<int> Vi;
-typedef vector<ll> Vl;
-typedef vector<string> Vs;
 typedef vector<vector<int>> VVi;
-typedef vector<vector<ll>> VVl;
 typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
-typedef pair<ll, int> pli;
 
-template<class T> inline bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
-template<class T> inline bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
-inline void swap(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
-inline void swap(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
-inline void YES() { cout << "YES" << endl; } inline void Yes() { cout << "Yes" << endl; }
-inline void NO() { cout << "NO" << endl; } inline void No() { cout << "No" << endl; }
-
-const int inf = 1 << 30;
-const ll linf = 1LL << 60;
-const int MOD = 1000000007;
-
+int n, k;
 
 void init()
 {
-
+	cin >> n >> k;
 }
 
 
@@ -64,5 +34,33 @@ int main()
 {
 	init();
 
+	int lim = (n - 1) * (n - 2) / 2;
+	if (k > lim)
+	{
+		cout << -1 << endl;
+		return 0;
+	}
+
+	vector<pii> edges, candidates;
+
+	REP(i, n - 1)
+		edges.emplace_back(pii(i + 1, n));
+
+	REP(i, n - 2)
+		for(int j = i + 1; j < n - 1; ++j)
+			candidates.emplace_back(pii(i + 1, j + 1));
+
+	int cur = lim;
+	int i = 0;
+	for (; cur > k; --cur)
+	{
+		edges.emplace_back(candidates[i++]);		
+	}
+
+	cout << edges.size() << endl;
+	for (auto edge : edges)
+	{
+		cout << edge.first << " " << edge.second << endl;
+	}
 
 }
