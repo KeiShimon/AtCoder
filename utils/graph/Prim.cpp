@@ -10,13 +10,12 @@
 */
 
 
-//// MUST INCLUDE ////
-typedef pair<ll, int> P;
-
-
 //// MUST HAVE EXTERNAL VARIABLES ////
+
+using G = vector<vector<pli>>;
+
+G g;
 int n;
-vector<vector<P>> g;
 
 
 //// BODY ////
@@ -29,7 +28,7 @@ ll Prim()
 	{
 		if (!done[i])
 		{
-			priority_queue<P, vector<P>, greater<P>> que;
+			priority_queue<pli, vector<pli>, greater<pli>> que;
 			que.push(MP(0LL, i));
 
 			while (!que.empty())
@@ -43,7 +42,7 @@ ll Prim()
 					done[v] = true;
 					tot += c;
 
-					for (P adj : g[v])
+					for (pli adj : g[v])
 						que.push(adj);
 				}
 			}

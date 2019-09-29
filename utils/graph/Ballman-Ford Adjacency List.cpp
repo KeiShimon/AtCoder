@@ -14,9 +14,10 @@ extern const ll linf;
 
 
 //// MUST HAVE EXTERNAL VARIABLES ////
+using G = vector<vector<pair<ll, int>>>;
+G g;
 
 int n, m;
-vector<vector<pair<ll, int>>> g;
 vector<ll> d;
 
 //// BODY ////
@@ -36,7 +37,7 @@ void init()
 }
 
 template <class Td>
-bool Bellman_Ford(int src, const vector<vector<pair<Td, int>>>& g, vector<Td>& d)
+bool Bellman_Ford(int src, const G& g, vector<Td>& d)
 {
 	int n = g.size();
 	d[src] = (Td)0;
@@ -65,7 +66,7 @@ vector<bool> loop;
 
 // detect all vertices that are affected by any negative loop : cost of those nodes would be infinitely updated
 template <class Td>
-void detectLoopingVertices(const vector<vector<pair<Td, int>>>& g, vector<Td>& d)
+void detectLoopingVertices(const G& g, vector<Td>& d)
 {
 	int n = g.size();
 	loop.assign(n, false);

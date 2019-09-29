@@ -1,18 +1,14 @@
 #include "template.h"
 
 
-
-//// MUST INCLUDE ////
-#include <queue>
-
-
-
 //// MUST HAVE EXTERNAL VARIABLES ////
 
+using G = vector<vector<pair<ll, int>>>;
+G g;
+
 int n, m;
-vector<vector<pair<ll, int>>> g;
-vll d;
-ll nul{ LLMAX };
+Vl d;
+ll nul = linf;
 
 
 //// BODY ////
@@ -21,7 +17,7 @@ void init()
 {
 	cin >> n >> m;
 	g.resize(n + 1);
-	d.resize(n + 1, LLMAX);
+	d.resize(n + 1, nul);
 
 	REP(i, m)
 	{
@@ -33,7 +29,7 @@ void init()
 }
 
 
-void dfs(const int frm)
+void dfs(int frm)
 {
 	queue<int> que;
 	que.push(frm);

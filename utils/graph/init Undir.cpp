@@ -1,12 +1,11 @@
 #include "template.h"
 
 
-//// MUST INCLUDE ////
-
-
-
 //// MUST HAVE EXTERNAL VARIABLES ////
-vector<vector<int>> g;
+
+using G = vector<vector<int>>;
+
+G g;
 int n, m;
 
 

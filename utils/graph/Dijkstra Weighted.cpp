@@ -11,45 +11,42 @@
 */
 
 
-//// MUST INCLUDE ////
-
-
-
 //// MUST HAVE EXTERNAL VARIABLES ////
 
-typedef pair<ll, int> P;
+using G = vector<vector<pli>>;
+
 template <class Tidx, class Tdist>
-void Dijkstra(const Tidx org, const vector<vector<pair<Tdist, Tidx>>>& g, vector<Tdist>& d);
+void Dijkstra(const Tidx org, const G& g, vector<Tdist>& d);
 
 int n, m;
-const ll inf = 1LL << 60;
-vector<vector<P>> g;
-vll d;
-
+G g;
+Vl d;
+const ll INF = linf;
 
 //// BODY ////
 
 void init()
 {
 	cin >> n >> m;
-	g.resize(n + 1);
+	g.resize(n);
 
 	REP(_i, m)
 	{
 		int a, b; ll c;
 		cin >> a >> b >> c;
-
+		--a; --b;
 		g[a].PB(MP(c, b));
+		// g[b].PB(MP(c, a));
 	}
 }
 
-template <class Tidx, class Tdist>
-void Dijkstra(const Tidx org, const vector<vector<pair<Tdist, Tidx>>>& g, vector<Tdist>& d)
+template <class Tdist>
+void Dijkstra(const int org, const G& g, vector<Tdist>& d)
 {
-	using P = pair<Tdist, Tidx>;
+	using P = pair<Tdist, int>;
 
-	vector<bool> done(n + 1, false);
-	d.assign(n + 1, inf);
+	vector<bool> done(n, false);
+	d.assign(n, INF);
 	d[org] = 0;
 
 	priority_queue<P, vector<P>, greater<P>> que;
@@ -58,7 +55,7 @@ void Dijkstra(const Tidx org, const vector<vector<pair<Tdist, Tidx>>>& g, vector
 	while (!que.empty())
 	{
 		Tdist c = que.top().first;
-		Tidx v = que.top().second;
+		int v = que.top().second;
 		que.pop();
 		done[v] = true;
 

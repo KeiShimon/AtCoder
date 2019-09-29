@@ -5,8 +5,10 @@
 
 
 //// MUST HAVE EXTERNAL VARIABLES ////
-typedef pair<ll, int> P;
-vector<vector<P>> g;
+
+using G = vector<vector<pli>>;
+G g;
+
 int n, m;
 
 
