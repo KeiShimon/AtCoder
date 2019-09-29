@@ -19,6 +19,7 @@
 #define RREPC(i,x) for(int i{ (int)(x)}; i >= 0; i--)
 #define REP1O(i,x) for(int i{ 1 }; i < (int)(x); i++)
 #define REP1C(i,x) for(int i{ 1 }; i <= (int)(x); i++)
+#define REPIT(i,x) for(auto i{(x).begin()}; i != (x).end(); i++) 
 
 #define PB push_back
 #define MP make_pair
@@ -52,10 +53,24 @@ const int inf = 1 << 30;
 const ll linf = 1LL << 60;
 const int MOD = 1000000007;
 
+string s, t;
+ll ns, nt;
+bool exist[26];
+VVi nxt;
 
 void init()
 {
+	cin >> s >> t;
+	ns = SZ(s);
+	nt = SZ(t);
+	nxt.resize(ns + 1, Vi(26, ns));
 
+	RREP(i, ns)
+	{
+		exist[s[i] - 'a'] = true;
+		REP(j, 26) nxt[i][j] = nxt[i + 1][j];
+		nxt[i][s[i] - 'a'] = i;
+	}
 }
 
 
@@ -63,5 +78,30 @@ int main()
 {
 	init();
 
+	ll ans = 1;
+	int i = 0;
+	for (char c : t)
+	{
+		int ci = c - 'a';
 
+		if (!exist[ci])
+		{
+			cout << -1 << endl;
+			return 0;
+		}
+
+		if (nxt[i][ci] != ns)
+		{
+			ans += ((ll)nxt[i][ci] - i);
+			i = nxt[i][ci];
+		}
+		else
+		{
+			ans += ns - i;
+			ans += (ll)nxt[0][ci];
+			i = nxt[0][ci];
+		}
+	}
+
+	cout << ans << endl;
 }
