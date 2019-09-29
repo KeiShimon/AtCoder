@@ -53,16 +53,114 @@ const int inf = 1 << 30;
 const ll linf = 1LL << 60;
 const int MOD = 1000000007;
 
+using G = vector<vector<int>>;
+typedef tuple<int, int, int> tup;
+
+G g;
+int n, m, start, goal;
+Vl d, k, kk;
+ll z = 0;
+
+void debug();
 
 void init()
 {
+	cin >> n >> m;
+	g.resize(n);
+	d.resize(n, linf);
+	k.resize(n, linf);
+	kk.resize(n, linf);
 
+	REP(i, m)
+	{
+		int a, b; cin >> a >> b; --a; --b;
+		g[a].push_back(b);
+	}
+
+	cin >> start >> goal;
+	--start; --goal;
+	d[start] = 0;
 }
 
+void bfs()
+{
+	// tup < d, vertex >
+	priority_queue<pli> qk, qkk, qkkp;
+
+	for (int u : g[start])
+	{
+		chmin(k[u], z);
+		qk.push(pli(z, u));
+	}
+
+	while (!qk.empty())
+	{
+		while (!qk.empty())
+		{
+			ll c = qk.top().first;
+			int v = qk.top().second;
+			qk.pop();
+
+			for (int u : g[v])
+				if (chmin(kk[u], c))
+					qkk.push(pli(c, u));
+		}
+
+		while (!qkk.empty())
+		{
+			ll c = qkk.top().first;
+			int v = qkk.top().second;
+			qkk.pop();
+
+			for (int u : g[v])
+				if (chmin(d[u], c + 1))
+					qkkp.push(pli(d[u], u));
+		}
+
+		while (!qkkp.empty())
+		{
+			int v = qkkp.top().second;
+			qkkp.pop();
+
+			for (int u : g[v])
+				if (chmin(k[u], d[v]))
+					qk.push(pli(d[v], u));
+		}
+	}
+
+}
 
 int main()
 {
 	init();
 
+	bfs();
+
+	if (d[goal] == linf)
+		cout << -1 << endl;
+	else
+		cout << d[goal] << endl;
 
 }
+
+
+void debug()
+{
+	cout << " d : ";
+	REP(i, n)
+		cout << setw(3) << d[i];
+	cout << endl;
+
+	cout << " k : ";
+	REP(i, n)
+		cout << setw(3) << k[i];
+	cout << endl;
+
+	cout << "kk : ";
+	REP(i, n)
+		cout << setw(3) << kk[i];
+	cout << endl;
+
+}
+
+//// done E in 53min on 29th, Sep, 2019 ////

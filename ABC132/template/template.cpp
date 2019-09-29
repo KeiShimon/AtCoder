@@ -53,16 +53,8 @@ const int inf = 1 << 30;
 const ll linf = 1LL << 60;
 const int MOD = 1000000007;
 
-
-void init()
-{
-
-}
-
-
 int main()
 {
-	init();
-
+	cout << "Hello World!" << endl;
 
 }
