@@ -15,8 +15,8 @@
 
 using G = vector<vector<pli>>;
 
-template <class Tidx, class Tdist>
-void Dijkstra(const Tidx org, const G& g, vector<Tdist>& d);
+template <class Tdist>
+void Dijkstra(int org, const G& g, vector<Tdist>& d);
 
 int n, m;
 G g;
@@ -41,7 +41,7 @@ void init()
 }
 
 template <class Tdist>
-void Dijkstra(const int org, const G& g, vector<Tdist>& d)
+void Dijkstra(int org, const G& g, vector<Tdist>& d)
 {
 	using P = pair<Tdist, int>;
 
@@ -50,7 +50,7 @@ void Dijkstra(const int org, const G& g, vector<Tdist>& d)
 	d[org] = 0;
 
 	priority_queue<P, vector<P>, greater<P>> que;
-	que.push(MP((Tdist)0, org));
+	que.push(P((Tdist)0, org));
 
 	while (!que.empty())
 	{
@@ -61,6 +61,6 @@ void Dijkstra(const int org, const G& g, vector<Tdist>& d)
 
 		for (P p : g[v])
 			if (!done[p.second] && chmin(d[p.second], c + p.first))
-				que.push(MP(d[p.second], p.second));
+				que.push(P(d[p.second], p.second));
 	}
 }

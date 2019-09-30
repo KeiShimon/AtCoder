@@ -128,7 +128,8 @@
     <ClCompile Include="Ballman-Ford Adjacency List.cpp" />
     <ClCompile Include="Ballman-Ford List of Edges.cpp" />
     <ClCompile Include="DFS Cost Directed.cpp" />
-    <ClCompile Include="Dijkstra.cpp" />
+    <ClCompile Include="Dijkstra Unweighted.cpp" />
+    <ClCompile Include="Dijkstra Weighted.cpp" />
     <ClCompile Include="init Undir Weighted.cpp" />
     <ClCompile Include="init Undir.cpp" />
     <ClCompile Include="Kruskal.cpp" />

@@ -33,8 +33,8 @@ void init()
 	REP(_i, m)
 	{
 		int a, b;
-		cin >> a >> b; --a; --b;
-
+		cin >> a >> b;
+		--a; --b;
 		g[a].PB(b);
 		// g[b].PB(a);
 	}
@@ -50,7 +50,7 @@ void Dijkstra(int org, const G& g, vector<Tdist>& d)
 	d[org] = 0;
 
 	priority_queue<P, vector<P>, greater<P>> que;
-	que.push(MP((Tdist)0, org));
+	que.push(P((Tdist)0, org));
 
 	while (!que.empty())
 	{

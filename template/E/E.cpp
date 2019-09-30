@@ -1,12 +1,13 @@
 #include <algorithm>
 #include <cmath>
 #include <deque>
+#include <limits.h>
 #include <iomanip>
 #include <iostream>
-#include <limits.h>
 #include <map>
 #include <numeric>
 #include <queue>
+#include <set>
 #include <sstream>
 #include <string>
 #include <string.h>
@@ -46,23 +47,26 @@ template<class T> inline bool chmax(T& a, const T& b) { if (a < b) { a = b; retu
 template<class T> inline bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
 inline void swap(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
 inline void swap(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
-inline void YES() { cout << "YES" << endl; } inline void Yes() { cout << "Yes" << endl; }
-inline void NO() { cout << "NO" << endl; } inline void No() { cout << "No" << endl; }
+inline void YES() { cout << "YES" << endl; } inline void NO() { cout << "NO" << endl; }
+inline void Yes() { cout << "Yes" << endl; } inline void No() { cout << "No" << endl; }
 
 const int inf = 1 << 30;
 const ll linf = 1LL << 60;
 const int MOD = 1000000007;
 
 
-void init()
-{
+void init();
 
-}
 
 
 int main()
 {
 	init();
 
+
+}
+
+void init()
+{
 
 }
