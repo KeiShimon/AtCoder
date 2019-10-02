@@ -24,8 +24,6 @@ void initTable(int n) {
 	}
 }
 
-
-// calculate mod of combination
 ll comb(ll n, ll k) { return comb((int)n, (int)k); }
 ll comb(int n, int k) {
 	if (n < k || n < 0 || k < 0)

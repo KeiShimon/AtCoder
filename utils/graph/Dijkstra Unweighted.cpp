@@ -59,6 +59,9 @@ void Dijkstra(int org, const G& g, vector<Tdist>& d)
 		que.pop();
 		done[v] = true;
 
+		if (c > d[v])
+			continue;
+
 		for (auto u : g[v])
 			if (!done[u] && chmin(d[u], c + 1))
 				que.push(P(d[u], u));
