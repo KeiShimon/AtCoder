@@ -1,7 +1,7 @@
 #include "template.h"
 
 /*
-		DFS on Grid
+		BFS on Grid
 
 		O ( H * W )
 
@@ -11,6 +11,7 @@
 //// MUST HAVE EXTERNAL VARIABLES ////
 const char WALL = '#';
 const char PATH = '.';
+const int n_dir = 4;
 const int dx[]{ 0, 1,  0, -1 };
 const int dy[]{ 1, 0, -1,  0 };
 int h, w;
@@ -29,9 +30,8 @@ void init()
 	d.resize(h, vector<int>(w, -1));
 }
 
-void dfs(int sy, int sx, int gy, int gx, vector<vector<int>> d)
+void bfs(int sy, int sx, int gy, int gx, vector<vector<int>>& d)
 {
-
 	d[sy][sx] = 0;
 	queue<pair<int, int>> que;
 	que.push(MP(sy, sx));
@@ -42,7 +42,7 @@ void dfs(int sy, int sx, int gy, int gx, vector<vector<int>> d)
 		int x = que.front().second;
 		que.pop();
 
-		REP(dir, 4)
+		REP(dir, n_dir)
 		{
 			int ny = y + dy[dir];
 			int nx = x + dx[dir];

@@ -1,7 +1,7 @@
 #include "template.h"
 
 /*
-
+	
 	Dijkstra Algorithm
 
 	O( E logV )
@@ -12,8 +12,8 @@
 
 
 //// MUST HAVE EXTERNAL VARIABLES ////
-
-using G = vector<vector<int>>;
+typedef pair<ll, int> pli;
+using G = vector<vector<pli>>;
 
 template <class Tdist>
 void Dijkstra(int org, const G& g, vector<Tdist>& d);
@@ -32,11 +32,11 @@ void init()
 
 	REP(_i, m)
 	{
-		int a, b;
-		cin >> a >> b;
+		int a, b; ll c;
+		cin >> a >> b >> c;
 		--a; --b;
-		g[a].PB(b);
-		// g[b].PB(a);
+		g[a].PB(MP(c, b));
+		// g[b].PB(MP(c, a));
 	}
 }
 
@@ -62,8 +62,8 @@ void Dijkstra(int org, const G& g, vector<Tdist>& d)
 		if (c > d[v])
 			continue;
 
-		for (auto u : g[v])
-			if (!done[u] && chmin(d[u], c + 1))
-				que.push(P(d[u], u));
+		for (P p : g[v])
+			if (!done[p.second] && chmin(d[p.second], c + p.first))
+				que.push(P(d[p.second], p.second));
 	}
 }
