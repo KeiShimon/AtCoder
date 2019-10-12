@@ -45,7 +45,7 @@ template <class T> inline void SegmentTree<T>::build()
 	}
 
 
-template <class T> inline void SegmentTree<T>::update(int t, const T& val)
+template <class T> inline void SegmentTree<T>::update(int i, const T& val)
 	{
 		i += sz;
 		tree[i] = val;
