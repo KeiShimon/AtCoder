@@ -1,5 +1,20 @@
 #include "template.h"
 
+/*
+
+memo table version for calculating the mod of combination
+
+Useful when:
+	multiple queries that includes combination are expected
+
+Time complexity:
+	O (1) for each query
+	O (n) for creating table
+
+Space complexity:
+	O (n * 3)
+*/
+
 
 ll comb(ll, ll);
 ll comb(int, int);

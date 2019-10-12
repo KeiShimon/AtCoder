@@ -125,10 +125,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Combination Mod powmod ver.cpp" />
     <ClCompile Include="Factorial MOD.cpp" />
     <ClCompile Include="Mod Int.cpp" />
-    <ClCompile Include="Combination MOD version.cpp" />
+    <ClCompile Include="Combination MOD memo ver.cpp" />
     <ClCompile Include="Inverse in MOD.cpp" />
+    <ClCompile Include="powMod.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
