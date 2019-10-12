@@ -3,66 +3,42 @@
 
 //// MUST HAVE EXTERNAL VARIABLES ////
 
-template <class T> void generatePrimes(T n);
-template <class T> void factorize(T n);
-
-map<ll, int> res;
-vector<ll> primes;
-int listedPrimesUpto = 1;
+template <class T> void factorize(T n, map<int, int>& res);
+map<int, int> res_fact;
 
 
-//// BODY ////
-
-template <class T> void factorize(T n)
+template <class T> void factorize(T n, map<int, int>& res)
 {
 	if (n < 2)
 		return;
 
-	T rt = (T)ceil(sqrt(n));
-	if (listedPrimesUpto < rt) generatePrimes(rt);
+	T lim = (T)ceil(sqrt(n));
+	int cnt, d;
 
-	for (T p : primes)
+	cnt = 0; d = 2;
+	while (!(n % d))
+		n /= d, ++cnt;
+	if (cnt)
+		res.insert(make_pair(d, cnt));
+
+	cnt = 0; d = 3;
+	while (!(n % d))
+		n /= d, ++cnt;
+	if (cnt)
+		res.insert(make_pair(d, cnt));
+
+	for (d = 5; d <= lim; d += 2)
 	{
-		if (rt < p) break;
+		if (!(d % 3))
+			continue;
 
-		int cnt = 0;
-
-		while (!(n % p))
-		{
-			n /= p;
-			cnt++;
-		}
-
+		cnt = 0;
+		while (!(n % d))
+			n /= d, ++cnt;
 		if (cnt)
-			res[p] += cnt;
+			res.insert(make_pair(d, cnt));
 	}
 
-	if (n != 1) res[n]++;
-}
-
-
-template <class T> void generatePrimes(T n)
-{
-	if (n <= listedPrimesUpto) return;
-	if (primes.empty()) primes.push_back(2);
-	if (primes.back() == 2 && n > 2) primes.push_back(3);
-
-	bool isPrime;
-
-	for (T k = primes.back() + 2; k <= n; k += 2)
-	{
-		if (!(k % 3)) continue;
-
-		isPrime = true;
-		T lim = (T)ceil(sqrt(k));
-
-		for (T p : primes)
-		{
-			if (p > lim) break;
-			if (!(k % p)) { isPrime = false; break; }
-		}
-
-		if (isPrime) primes.push_back(k);
-	}
-	listedPrimesUpto = n;
+	if (n != 1)
+		res.insert(make_pair(n, 1));
 }
