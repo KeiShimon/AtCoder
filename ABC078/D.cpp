@@ -1,85 +1,67 @@
 #include <algorithm>
 #include <cmath>
 #include <deque>
+#include <iomanip>
 #include <iostream>
+#include <map>
 #include <numeric>
+#include <queue>
+#include <set>
 #include <sstream>
 #include <string>
 #include <string.h>
-#include <tuple>
 #include <vector>
-
-#include <unordered_map>
-
-#define REP(i,x) for(int i{ 0 }; i < (int)(x); i++)
-#define REPC(i,x) for(int i{ 0 }; i <= (int)(x); i++)
-#define RREP(i,x) for(int i{ (int)(x) - 1 }; i >= 0 ;i--)
-#define RREPC(i,x) for(int i{ (int)(x)}; i >= 0; i--)
-#define REP1O(i,x) for(int i{ 1 }; i < (int)(x); i++)
-#define REP1C(i,x) for(int i{ 1 }; i <= (int)(x); i++)
-
-#define PB push_back
-#define MP make_pair
-#define F first
-#define S second
-#define SZ(x) ((int)(x).size())
-#define ALL(x) (x).begin(),(x).end()
 
 using namespace std;
 
-typedef int64_t ll;
-typedef vector<int> vi;
-typedef vector<ll> vll;
-typedef vector<vector<int>> vvi;
-typedef vector<vector<ll>> vvll;
-typedef pair<int, int> pii;
-typedef tuple<int, int, int> tupiii;
-typedef tuple<ll, ll, ll> tuplll;
+#define REP(i,x) for(int i{ 0 }; i < (int)(x); i++)
 
-const int dx[4] = { 1, 0, -1,  0 };
-const int dy[4] = { 0, 1,  0, -1 };
-const int INTMAX = 2147483647;
-const ll LLMAX = 9223372036854775807;
+typedef vector<int> Vi;
 
-template<class T>bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
-template<class T>bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
-void SWAP(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
-void SWAP(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
+template<class T> inline bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
+template<class T> inline bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
 
+const int inf = 1 << 28;
 
+int a_init, b_init, n;
+Vi vc;
+// dp[acting player][the number of cards remaining when a turn is passed]
+int dp[2][2001];
 
-class D {
-	int n, x, y;
-	vi a;
+void init()
+{
+	cin >> n >> a_init >> b_init;
 
-public:
-	D()
-	{
-		cin >> n >> x >> y;
-		a.resize(n);
-		
-		REP(i, n)
-			cin >> a[i];
-
-		
-	}
-
-
-	void solve()
-	{
-		if (n == 1)
-			cout << abs(a[0] - y) << endl;
-
-		else
-			cout << max(abs(a[n - 1] - y), abs(a[n - 1] - a[n - 2])) << endl;
-	}
-};
-
+	vc.resize(n);
+	REP(i, n) cin >> vc[i];
+}
 
 int main()
 {
-	D solution;
-	solution.solve();
+	init();
 
-	return 0;
+	for (int i = 1; i < n; ++i)
+	{
+		int c_other = vc[n - i - 1];
+		int res;
+
+		// p0, maximize
+		res = abs(vc.back() - c_other);
+		for (int j = i - 1; j >= 1; --j)
+			chmax(res, dp[1][j]);
+
+		dp[0][i] = res;
+
+		// p1, minimize
+		res = abs(vc.back() - c_other);
+		for (int j = i - 1; j >= 1; --j)
+			chmin(res, dp[0][j]);
+		dp[1][i] = res;
+	}
+
+	int ans = abs(b_init - vc.back());
+	for (int i = n - 1; i >= 1; --i)
+		chmax(ans, dp[1][i]);
+
+	cout << ans << endl;
 }
