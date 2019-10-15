@@ -1,30 +1,25 @@
 #include "template.h"
 
+typedef pair<ll, int> P;
+using G = vector<vector<P> >;
 
-//// MUST INCLUDE ////
+void init();
 
-
-//// MUST HAVE EXTERNAL VARIABLES ////
-
-using G = vector<vector<pli>>;
 G g;
-
 int n, m;
-
-
-//// BODY ////
 
 void init()
 {
 	cin >> n >> m;
-
 	g.resize(n);
 
-	REP(i, m)
+	REP(_i, m)
 	{
-		int a, b; ll c; cin >> a >> b >> c; --a; --b;
+		int a, b; ll c;
+		cin >> a >> b >> c;
+		--a; --b;
 
-		g[a].emplace_back(MP(c, b));
-		g[b].emplace_back(MP(c, a));
+		g[a].push_back(P(c, b));
+		g[b].push_back(P(c, a));
 	}
 }

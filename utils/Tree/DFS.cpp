@@ -43,7 +43,7 @@ void dfs(Tidx v, Tidx par)
 {
 	// pre-order operations if any
 
-	for (Tidx adj : g[v])
+	for (auto adj : g[v])
 	{
 		if (adj != par)
 		{

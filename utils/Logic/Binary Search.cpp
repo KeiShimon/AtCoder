@@ -1,17 +1,20 @@
 using namespace std;
 
 bool check();
-int s, t;
 
+int ng, ok;
 
-int ng = s - 1, ok = t;
-while (ng - ok > 1)
+while (abs(ng - ok) > 1)
 {
-	int mid = (ng + ok) / 2;
-	(check(mid) ? ok : ng) = mid;
+	auto mid = (ng + ok) / 2;
+
+	if (check(mid))
+		ok = mid;
+	else
+		ng = mid;
 }
 
-if (ok == t)
-	cout << "for all x, f(x) = false" << endl;
-else
-	cout << ok << endl;
+//if (ok == t)
+//	cout << "for all x, f(x) = false" << endl;
+//else
+//	cout << ok << endl;

@@ -12,8 +12,8 @@
 
 
 //// MUST HAVE EXTERNAL VARIABLES ////
-typedef pair<ll, int> pli;
-using G = vector<vector<pli>>;
+typedef pair<ll, int> P;
+using G = vector<vector<P>>;
 
 template <class Tdist>
 void Dijkstra(int org, const G& g, vector<Tdist>& d);
@@ -43,18 +43,16 @@ void init()
 template <class Tdist>
 void Dijkstra(int org, const G& g, vector<Tdist>& d)
 {
-	using P = pair<Tdist, int>;
-
 	vector<bool> done(n, false);
 	d.assign(n, INF);
 	d[org] = 0;
 
 	priority_queue<P, vector<P>, greater<P>> que;
-	que.push(P((Tdist)0, org));
+	que.push(make_pair(0, org));
 
 	while (!que.empty())
 	{
-		Tdist c = que.top().first;
+		auto c = que.top().first;
 		int v = que.top().second;
 		que.pop();
 		done[v] = true;

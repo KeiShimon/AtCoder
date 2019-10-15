@@ -11,8 +11,10 @@
 
 
 //// MUST HAVE EXTERNAL VARIABLES ////
+typedef pair<ll, int> P;
+using G = vector<vector<P>>;
 
-using G = vector<vector<pli>>;
+ll Prim();
 
 G g;
 int n;
@@ -22,32 +24,32 @@ int n;
 ll Prim()
 {
 	vector<bool> done(n, false);
-	ll tot = 0;
+	ll ret = 0;
 
 	REP(i, n)
 	{
 		if (!done[i])
 		{
-			priority_queue<pli, vector<pli>, greater<pli>> que;
-			que.push(MP(0LL, i));
+			priority_queue<P, vector<P>, greater<P> > que;
+			que.push(P(0LL, i));
 
 			while (!que.empty())
 			{
 				int v = que.top().second;
-				ll c = que.top().first;
+				auto c = que.top().first;
 				que.pop();
 
 				if (!done[v])
 				{
 					done[v] = true;
-					tot += c;
+					ret += c;
 
-					for (pli adj : g[v])
-						que.push(adj);
+					for (P e : g[v])
+						que.push(e);
 				}
 			}
 		}
 	}
 
-	return tot;
+	return ret;
 }
