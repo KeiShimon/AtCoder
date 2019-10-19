@@ -1,25 +1,8 @@
-#include <algorithm>
 #include <cmath>
-#include <deque>
-#include <iomanip>
 #include <iostream>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <set>
-#include <sstream>
-#include <string>
-#include <string.h>
 #include <vector>
 
 using namespace std;
-
-#define REP(i,x) for(int i{ 0 }; i < (int)(x); i++)
-#define REPC(i,x) for(int i{ 0 }; i <= (int)(x); i++)
-#define RREP(i,x) for(int i{ (int)(x) - 1 }; i >= 0 ;i--)
-#define RREPC(i,x) for(int i{ (int)(x)}; i >= 0; i--)
-#define REP1O(i,x) for(int i{ 1 }; i < (int)(x); i++)
-#define REP1C(i,x) for(int i{ 1 }; i <= (int)(x); i++)
 
 typedef int64_t ll;
 
@@ -45,31 +28,30 @@ struct mint {
 istream& operator>>(istream& i, mint& a) { i >> a.x; return i; }
 ostream& operator<<(ostream& o, const mint& a) { o << a.x; return o; }
 
-////////////////
+////////////////////////////////////////////////////////////////////////////////////
 
 int N, K;
 
-// sum for all i : gcd(i, k) = g 
+// sum for all x : gcd(x, k) = g 
 mint solve(int g);
-
-// sum for all i : gcd(i, k) = 1 && i in [1, n]
-mint calc(int k, int n);
 
 // determine sign for inclusion-exclusion principle (•ïœŒ´—)
 int sign(int x);
 
-// arithmetic sum
-inline mint arithsum(int n) { return (ll)n * ((ll)n + 1) / 2; }
+// arithmetic sum for 1 + 2 + ... + n
+inline ll arithmeticSum(int n) { return (ll)n * ((ll)n + 1) / 2 % MOD; }
 
 int main()
 {
 	cin >> N >> K;
+
 	mint ans;
 
+	// get all divisors of K
 	for (int i = 1; i * i <= K; ++i)
 		if (!(K % i))
 		{
-			int d;
+			int d; // d for "d"ivisor
 
 			d = i;
 			ans += solve(d) * (K / d);
@@ -84,57 +66,64 @@ int main()
 	cout << ans.x << endl;
 }
 
-// sum for all i : gcd(i, K) = g, for all i in [1, N]
 mint solve(int g)
 {
+	// Problem
+	// determine sum for all x : gcd(x, K) = g, for all x in [1, N]
+
 	mint ret;
 
 	int n = N / g;
 	int k = K / g;
 
-	// problem is converted : 
-	// sum for all i : gcd(i, k) = 1, for all i in [1, n]
+	// Converted Problem
+	// determine sum for all x : gcd(x, k) = 1, for all x in [1, n]
+
+	// such x are coprime to k, so
+	// lets get sum of all x that is coprime to k !!
 
 	for (int i = 1; i * i <= k; ++i)
-		if (!(k % i))
+		if (!(k % i)) 	// get all divisor of k
 		{
 			int d = i;
-			ret += arithsum(n / d) * d * sign(d);
+			
+			mint s = arithmeticSum(n / d) * d; // sum for all x : x = a * d
+			ret += s * sign(d); // inclusion-exclusion principle
 
 			if (i * i != k)
 			{
 				d = k / i;
-				ret += arithsum(n / d) * d * sign(d);
+				mint s = arithmeticSum(n / d) * d;
+				ret += s * sign(d);
 			}
 		}
 
+	// revert converted problem
+	ret *= g;
 	return ret;
 }
 
-// determine sign for inclusion-exclusion principle
 int sign(int x)
 {
-	if (x == 1)
-		return 1;
+	// determine sign for inclusion-exclusion principle
 
-	// number of factors in x
-	int cnt = 0;
-	int lim = ceil(sqrt(x));
+	int cnt = 0; // number of factors
 
-	for (int d = 2; d <= lim; ++d)
+	for (int i = 2; i * i <= x; ++i)
 	{
-		while (!(x % d))
+		if (!(x % (i * i)))
+		{	// you are thinking of 4, 8, 12, ... ?? you have already done operation when it was 2, 4, 6, 8, ... !!
+			return 0;
+		}
+
+		if (!(x % i))
 		{
-			x /= d;
 			++cnt;
+			x /= i;
 		}
 	}
 
-	if (x != 1)
-		++cnt;
+	if (x != 1) ++cnt;
 
-	if (cnt & 1)
-		return 1;
-	else
-		return -1;
+	return (cnt & 1) ? -1 : 1;
 }
