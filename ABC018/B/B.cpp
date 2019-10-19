@@ -3,10 +3,10 @@
 #include <algorithm>
 
 using namespace std;
+string S;
+int N;
 
 class B {
-	string S;
-	int N;
 public:
 	void solve()
 	{

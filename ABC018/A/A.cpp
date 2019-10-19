@@ -2,8 +2,9 @@
 
 using namespace std;
 
+int a, b, c;
+
 class A {
-	int a, b, c;
 public:
 	void solve()
 	{
