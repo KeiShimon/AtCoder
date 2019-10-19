@@ -126,6 +126,7 @@
   <ItemGroup>
     <ClCompile Include="BIT.cpp" />
     <ClCompile Include="Cumulative Sum 2-D.cpp" />
+    <ClCompile Include="CumulativeSum.cpp" />
     <ClCompile Include="Segment Tree.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

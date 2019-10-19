@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{A2D3090A-3E15-4924-9BE9-1738DA04D192}</ProjectGuid>
-    <RootNamespace>Tree</RootNamespace>
+    <ProjectGuid>{38e34a5c-e97f-4747-a96f-c4bf35399ed8}</ProjectGuid>
+    <RootNamespace>template_</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -76,7 +76,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\simon\codes\AtCoder\utils\utils</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,10 +123,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DFS.cpp" />
-    <ClCompile Include="EulerTour.cpp" />
-    <ClCompile Include="LCA.cpp" />
-    <ClCompile Include="UnionFind.cpp" />
+    <ClCompile Include="Template.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Template.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,6 @@
 #include "template.h"
 
-////// Mod int //////
+// Mod int //////
 struct mint {
 	ll x;
 	mint() :x(0) {}
@@ -21,4 +21,4 @@ istream& operator>>(istream& i, mint& a) { i >> a.x; return i; }
 ostream& operator<<(ostream& o, const mint& a) { o << a.x; return o; }
 typedef vector<mint> Vm;
 
-/////////////////////
+////////////////////////////////////////////////////////////////////////////////////

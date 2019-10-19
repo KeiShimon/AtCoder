@@ -4,11 +4,12 @@
 
 using G = vector<vector<int> >;
 
+void init();
 void bfs(int org, const G& g, vector<int>& d);
 
 int n, m;
 G g;
-Vl d;
+vector<int> d;
 
 //// BODY ////
 

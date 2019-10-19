@@ -38,14 +38,13 @@ void init()
 	}
 }
 
-template <class Tidx>
-void dfs(Tidx v, Tidx par)
+void dfs(int v, int par)
 {
 	// pre-order operations if any
 
-	for (auto adj : g[v])
+	for (int u : g[v])
 	{
-		if (adj != par)
+		if (u != par)
 		{
 				
 		}
@@ -54,5 +53,3 @@ void dfs(Tidx v, Tidx par)
 	// post-order operations if any
 
 }
-
-

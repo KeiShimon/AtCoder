@@ -4,5 +4,6 @@
     <ClCompile Include="BIT.cpp" />
     <ClCompile Include="Cumulative Sum 2-D.cpp" />
     <ClCompile Include="Segment Tree.cpp" />
+    <ClCompile Include="CumulativeSum.cpp" />
   </ItemGroup>
 </Project>

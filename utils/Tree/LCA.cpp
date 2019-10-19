@@ -2,11 +2,16 @@
 
 /*
 	
-	Segment Tree
+	each query
+		O ( log N )
 
-	O( log N ) for each query
+	Euler Tour
+		O ( N )
 
 */
+
+#include <functional>
+
 
 template< typename T >
 class SegmentTree {
@@ -21,12 +26,73 @@ public:
 	SegmentTree(int n, const F f, const T& I);
 	void set(int i, const T& val);
 	void build();
-	void update(int i, const T & val);
+	void update(int i, const T& val);
 	T operator[](const int& i) const { return tree[i + sz]; }
 	T query(int a, int b);
 };
+
 ////////////////////////////////////////////////////////////////////////////////////
 
+void init();
+void dfs(int v, int par, int& k, int d);
+int getLCA(int a, int b);
+
+const int MAX_N = 100000;
+int n;
+vector<vector<int>> g;
+vector<int> visitNode, depth, id;
+
+typedef pair<int, int> P;
+P compare(P l, P r) { return (l.first < r.first) ? l : r; }
+SegmentTree<P> seg(2 * MAX_N - 1, compare, P(inf, -1));
+
+int getLCA(int a, int b)
+{
+	return seg.query(min(id[a], id[b]), max(id[a], id[b]) + 1).second;
+}
+
+void init()
+{
+	g.resize(n);
+	id.resize(n);
+	visitNode.resize(2 * n - 1);
+	depth.resize(2 * n - 1);
+
+	REP(i, n - 1)
+	{
+		int a, b;
+		cin >> a >> b;
+		--a; --b;
+		g[a].push_back(b);
+		g[b].push_back(a);
+	}
+
+	int k = 0;
+	dfs(0, -1, k, 0);
+
+	seg.build();
+}
+
+void dfs(int v, int par, int& k, int d)
+{
+	id[v] = k;
+	visitNode[k] = v;
+	depth[k] = d;
+	seg.set(k, P(d, v));
+	k++;
+
+	for (int u : g[v])
+	{
+		if (u != par)
+		{
+			dfs(u, v, k, d + 1);
+			visitNode[k] = v;
+			depth[k] = d;
+			seg.set(k, P(d, v));
+			k++;
+		}
+	}
+}
 
 //////// Segment Tree implementation ////////
 
