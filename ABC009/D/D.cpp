@@ -80,7 +80,7 @@ int main()
 	REP(i, K) A.at(i, K - 1) = vc[K - 1 - i];
 	REP(i, K - 1) A.at(i + 1, i) = identity;
 
-	A = A ^ (M - 1);
+	A = A ^ ((long long)M - 1);
 	v *= A;
 
 	unsigned ans = v.at(0, 0);
