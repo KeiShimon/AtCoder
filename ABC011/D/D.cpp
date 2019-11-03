@@ -1,55 +1,67 @@
-#include <algorithm>
 #include <cmath>
-#include <deque>
 #include <iomanip>
 #include <iostream>
-#include <map>
-#include <numeric>
-#include <queue>
-#include <set>
-#include <sstream>
-#include <string>
-#include <string.h>
 #include <vector>
 
 using namespace std;
 
-#define REP(i,x) for(int i{ 0 }; i < (int)(x); i++)
-#define REPC(i,x) for(int i{ 0 }; i <= (int)(x); i++)
-#define RREP(i,x) for(int i{ (int)(x) - 1 }; i >= 0 ;i--)
-#define RREPC(i,x) for(int i{ (int)(x)}; i >= 0; i--)
-#define REP1O(i,x) for(int i{ 1 }; i < (int)(x); i++)
-#define REP1C(i,x) for(int i{ 1 }; i <= (int)(x); i++)
-#define REPIT(i,x) for(auto i{(x).begin()}; i != (x).end(); i++)
+vector<vector<double>> combProb;
+void calcCombProbability(int n)
+{
+	combProb.resize(n + 1);
+	combProb[0].resize(2, 0);
+	combProb[0][0] = 1;
 
-#define PB push_back
-#define MP make_pair
-#define SZ(x) ((int)(x).size())
-#define ALL(x) (x).begin(),(x).end()
+	for (int i = 1; i <= n; ++i)
+	{
+		combProb[i].resize(i + 2, 0);
+		combProb[i][0] = combProb[i - 1][0] / 2;
+		for (int j = 1; j <= i; ++j)
+			combProb[i][j] = (combProb[i - 1][j - 1] + combProb[i - 1][j]) / 2;
+	}
+}
 
-typedef int64_t ll;
-typedef double dbl;
-typedef vector<bool> Vb;
-typedef vector<int> Vi;
-typedef vector<ll> Vl;
-typedef vector<string> Vs;
-typedef vector<vector<int> > VVi;
-typedef vector<vector<ll> > VVl;
-
-template<class T> inline bool chmax(T& a, const T& b) { if (a < b) { a = b; return 1; } return 0; }
-template<class T> inline bool chmin(T& a, const T& b) { if (b < a) { a = b; return 1; } return 0; }
-inline void swap(ll& a, ll& b) { a ^= b; b ^= a; a ^= b; }
-inline void swap(int& a, int& b) { a ^= b; b ^= a; a ^= b; }
-inline void YES() { cout << "YES" << endl; } inline void Yes() { cout << "Yes" << endl; }
-inline void NO() { cout << "NO" << endl; } inline void No() { cout << "No" << endl; }
-
-const int inf = 1 << 28;
-const ll linf = 1LL << 60;
-const int MOD = 1000000007;
-
-
+int n, d, x, y;
 
 int main()
 {
+	cin >> n >> d >> x >> y;
 
+	if ((x % d) || (y % d))
+	{
+		cout << 0 << endl;
+		return 0;
+	}
+
+	x /= d; y /= d;
+	x = abs(x); y = abs(y);
+
+	if (x + y > n)
+	{
+		cout << 0 << endl;
+		return 0;
+	}
+
+	calcCombProbability(n);
+
+	double ans = 0;
+	for (int moveH = x; moveH <= n - y; ++moveH)
+	{
+		double p = combProb[n][moveH];
+
+		if ((moveH - x) & 1)
+			continue;
+		int moveHrev = (moveH - x) / 2;
+		p *= combProb[moveH][moveHrev];
+
+		int moveV = n - moveH;
+		if ((moveV - y) & 1)
+			continue;
+		int moveVrev = (moveV - y) / 2;
+		p *= combProb[moveV][moveVrev];
+
+		ans += p;
+	}
+
+	cout << setprecision(12) << ans << endl;
 }

@@ -14,6 +14,11 @@ Space complexity:
 	zero
 */
 
+ll powmod(ll, ll);
+ll powmod(int b, int a) { return powmod((ll)b, (ll)a); }
+ll comb(ll, ll);
+ll comb(int a, int b) { return comb((ll)a, (ll)b); }
+
 
 ll powmod(ll b, ll e) {
 	ll ret = 1;
@@ -43,5 +48,5 @@ ll comb(ll a, ll b)
 		denominator = denominator * (b - i) % MOD;
 	}
 
-	return numerator * powmod(denominator, MOD - 2) % MOD;
+	return numerator * powmod(denominator, (ll)MOD - 2) % MOD;
 }

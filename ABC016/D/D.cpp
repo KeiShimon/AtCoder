@@ -17,8 +17,13 @@ bool intersect(const Point& a1, const Point& a2, const Point& b1, const Point& b
 {
 	ll res_1 = (a1.x - a2.x) * (b1.y - a1.y) + (a1.y - a2.y) * (a1.x - b1.x);
 	ll res_2 = (a1.x - a2.x) * (b2.y - a1.y) + (a1.y - a2.y) * (a1.x - b2.x);
+	if (!((res_1 ^ res_2) & (1LL << 63)))
+		return false;
 
-	return ((res_1 ^ res_2) & (1LL << 63));
+	ll res_3 = (b1.x - b2.x) * (a1.y - b1.y) + (b1.y - b2.y) * (b1.x - a1.x);
+	ll res_4 = (b1.x - b2.x) * (a2.y - b1.y) + (b1.y - b2.y) * (b1.x - a2.x);
+
+	return ((res_3 ^ res_4) & (1LL << 63));
 }
 
 int main()

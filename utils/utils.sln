@@ -25,6 +25,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Grid", "Grid\Grid.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Logic", "Logic\Logic.vcxproj", "{338571D8-3A78-4009-8DE9-3A2782C3F551}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Matrix", "Matrix\Matrix.vcxproj", "{28DD9800-E98F-4119-BE17-230362B049C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -121,6 +123,14 @@ Global
 		{338571D8-3A78-4009-8DE9-3A2782C3F551}.Release|x64.Build.0 = Release|x64
 		{338571D8-3A78-4009-8DE9-3A2782C3F551}.Release|x86.ActiveCfg = Release|Win32
 		{338571D8-3A78-4009-8DE9-3A2782C3F551}.Release|x86.Build.0 = Release|Win32
+		{28DD9800-E98F-4119-BE17-230362B049C9}.Debug|x64.ActiveCfg = Debug|x64
+		{28DD9800-E98F-4119-BE17-230362B049C9}.Debug|x64.Build.0 = Debug|x64
+		{28DD9800-E98F-4119-BE17-230362B049C9}.Debug|x86.ActiveCfg = Debug|Win32
+		{28DD9800-E98F-4119-BE17-230362B049C9}.Debug|x86.Build.0 = Debug|Win32
+		{28DD9800-E98F-4119-BE17-230362B049C9}.Release|x64.ActiveCfg = Release|x64
+		{28DD9800-E98F-4119-BE17-230362B049C9}.Release|x64.Build.0 = Release|x64
+		{28DD9800-E98F-4119-BE17-230362B049C9}.Release|x86.ActiveCfg = Release|Win32
+		{28DD9800-E98F-4119-BE17-230362B049C9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
